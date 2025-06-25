@@ -22,23 +22,12 @@ defineProps<WeightCardProps>();
 </template>
 
 <style scoped lang="less">
-// 样式变量
-@primary-color: #6366f1;
-@success-color: #10b981;
-@danger-color: #ef4444;
-@bg-primary: linear-gradient(
-  0deg,
-  rgba(86, 181, 199, 1) 0%,
-  rgba(22, 194, 190, 0.72) 100%
-);
-@shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-@border-radius-lg: 20px;
-
 .weight-card {
-  background: @bg-primary;
-  border-radius: @border-radius-lg;
-  padding: 24px;
-  box-shadow: @shadow-md;
+  background: @gradient-primary;
+  border-radius: @border-radius-xl;
+  padding: @spacing-lg;
+  box-shadow: @shadow-none;
+  border: @border-width solid @color-border;
   justify-content: space-between;
 
   .weight-main {
@@ -46,8 +35,8 @@ defineProps<WeightCardProps>();
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: @spacing-sm;
+    margin-bottom: @spacing-sm;
   }
 }
 </style>

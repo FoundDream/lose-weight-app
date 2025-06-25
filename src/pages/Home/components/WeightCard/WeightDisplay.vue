@@ -17,16 +17,17 @@ defineProps<WeightDisplayProps>();
   align-items: baseline;
 
   .weight-number {
-    font-size: 48px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
+    font-size: @font-size-4xl;
+    font-weight: @font-weight-bold;
+    color: @color-text-inverse;
+    line-height: @line-height-tight;
+    font-family: @font-family-display;
   }
 
   .weight-unit {
-    font-size: 18px;
-    color: #fff;
-    margin-left: 4px;
+    font-size: @font-size-lg;
+    color: @color-text-inverse;
+    margin-left: @spacing-xs;
   }
 }
 </style>

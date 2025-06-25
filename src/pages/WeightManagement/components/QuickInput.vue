@@ -103,30 +103,20 @@ const handleQuickInput = (weight: number) => {
 </template>
 
 <style scoped lang="less">
-@primary-color: #6366f1;
-@success-color: #10b981;
-@bg-primary: #ffffff;
-@bg-secondary: #f8fafc;
-@text-primary: #1e293b;
-@text-secondary: #64748b;
-@text-light: #94a3b8;
-@border-color: #e2e8f0;
-@shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-@border-radius: 16px;
+// 使用全局主题变量
 
 .quick-input {
-  background: @bg-primary;
-  border-radius: @border-radius;
-  padding: 20px;
-  box-shadow: @shadow-md;
+  background: @color-bg-primary;
+  border-radius: @border-radius-lg;
+  padding: @spacing-lg;
+  box-shadow: @shadow-none;
+  border: @border-width solid @color-border;
 
   .input-header {
-    margin-bottom: 20px;
+    margin-bottom: @spacing-lg;
 
     h3 {
-      font-size: 18px;
-      font-weight: 600;
-      color: @text-primary;
+      .heading-5();
       margin: 0;
     }
   }
@@ -134,7 +124,7 @@ const handleQuickInput = (weight: number) => {
   .input-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: @spacing-md;
 
     .weight-input-section {
       .input-group {
@@ -145,26 +135,26 @@ const handleQuickInput = (weight: number) => {
 
         .weight-input {
           flex: 1;
-          padding: 12px 16px;
-          border: 2px solid @border-color;
-          border-radius: 12px;
-          font-size: 18px;
-          font-weight: 600;
+          padding: @spacing-sm @spacing-md;
+          border: @border-width-thick solid @color-border;
+          border-radius: @border-radius-md;
+          font-size: @font-size-lg;
+          font-weight: @font-weight-semibold;
           text-align: center;
-          background: @bg-secondary;
-          transition: all 0.2s ease;
+          background: @color-bg-secondary;
+          transition: all @transition-normal;
 
           &:focus {
             outline: none;
-            border-color: @primary-color;
-            background: @bg-primary;
+            border-color: @color-primary;
+            background: @color-bg-primary;
           }
         }
 
         .unit-label {
-          font-size: 16px;
-          font-weight: 600;
-          color: @text-secondary;
+          font-size: @font-size-base;
+          font-weight: @font-weight-semibold;
+          color: @color-text-secondary;
           min-width: 30px;
         }
       }
@@ -176,17 +166,17 @@ const handleQuickInput = (weight: number) => {
 
         .quick-btn {
           padding: 8px 12px;
-          border: 1px solid @border-color;
+          border: 1px solid @color-border;
           border-radius: 8px;
-          background: @bg-secondary;
-          color: @text-secondary;
+          background: @color-bg-secondary;
+          color: @color-text-secondary;
           font-size: 14px;
           cursor: pointer;
           transition: all 0.2s ease;
 
           &:hover {
-            border-color: @primary-color;
-            color: @primary-color;
+            border-color: @color-primary;
+            color: @color-primary;
             background: rgba(99, 102, 241, 0.1);
           }
         }
@@ -197,44 +187,42 @@ const handleQuickInput = (weight: number) => {
       .note-input {
         width: 100%;
         padding: 12px 16px;
-        border: 2px solid @border-color;
+        border: 2px solid @color-border;
         border-radius: 12px;
         font-size: 14px;
-        background: @bg-secondary;
+        background: @color-bg-secondary;
         transition: all 0.2s ease;
 
         &:focus {
           outline: none;
-          border-color: @primary-color;
-          background: @bg-primary;
+          border-color: @color-primary;
+          background: @color-bg-primary;
         }
 
         &::placeholder {
-          color: @text-light;
+          color: @color-text-tertiary;
         }
       }
     }
 
     .submit-btn {
-      padding: 12px 24px;
-      background: @primary-color;
-      color: white;
+      padding: @spacing-sm @spacing-lg;
+      background: @color-primary;
+      color: @color-text-inverse;
       border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
+      border-radius: @border-radius-md;
+      font-size: @font-size-base;
+      font-weight: @font-weight-semibold;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all @transition-normal;
 
       &:hover:not(:disabled) {
-        background: darken(@primary-color, 10%);
-        transform: translateY(-1px);
+        background: @color-bg-tertiary;
       }
 
       &:disabled {
         opacity: 0.6;
         cursor: not-allowed;
-        transform: none;
       }
     }
   }

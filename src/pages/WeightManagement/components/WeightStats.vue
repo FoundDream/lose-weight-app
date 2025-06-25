@@ -67,27 +67,19 @@ defineProps<Props>();
 </template>
 
 <style scoped lang="less">
-@primary-color: #6366f1;
-@success-color: #10b981;
-@bg-primary: #ffffff;
-@bg-secondary: #f8fafc;
-@text-primary: #1e293b;
-@text-secondary: #64748b;
-@text-light: #94a3b8;
-@shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-@border-radius: 16px;
+// 使用全局主题变量
 
 .weight-stats {
-  background: @bg-primary;
-  border-radius: @border-radius;
-  padding: 24px;
-  box-shadow: @shadow-md;
+  background: @color-bg-primary;
+  border-radius: @border-radius-md;
+  padding: @spacing-md;
+  box-shadow: @shadow-none;
 
   .stats-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 24px;
+    gap: @spacing-md;
+    margin-bottom: @spacing-md;
 
     .stat-item {
       text-align: center;
@@ -96,26 +88,26 @@ defineProps<Props>();
         grid-column: 1 / -1;
 
         .stat-value {
-          font-size: 36px;
-          font-weight: 700;
-          color: @primary-color;
+          font-size: @font-size-lg;
+          font-weight: @font-weight-semibold;
+          color: @color-primary;
         }
       }
 
       .stat-value {
-        font-size: 24px;
-        font-weight: 600;
-        color: @text-primary;
-        margin-bottom: 4px;
+        font-size: @font-size-lg;
+        font-weight: @font-weight-semibold;
+        color: @color-text-primary;
+        margin-bottom: @spacing-xs;
 
         &.success {
-          color: @success-color;
+          color: @color-success;
         }
       }
 
       .stat-label {
-        font-size: 14px;
-        color: @text-secondary;
+        font-size: @font-size-sm;
+        color: @color-text-secondary;
       }
     }
   }
@@ -128,27 +120,27 @@ defineProps<Props>();
       margin-bottom: 8px;
 
       .progress-text {
-        font-size: 14px;
-        color: @text-secondary;
+        font-size: @font-size-sm;
+        color: @color-text-secondary;
       }
 
       .progress-percentage {
-        font-size: 14px;
-        font-weight: 600;
-        color: @success-color;
+        font-size: @font-size-sm;
+        font-weight: @font-weight-semibold;
+        color: @color-success;
       }
     }
 
     .progress-bar {
-      height: 8px;
-      background: @bg-secondary;
-      border-radius: 4px;
+      height: @spacing-sm;
+      background: @color-bg-secondary;
+      border-radius: @border-radius-sm;
       overflow: hidden;
 
       .progress-fill {
         height: 100%;
-        background: @success-color;
-        border-radius: 4px;
+        background: @color-success;
+        border-radius: @border-radius-sm;
         transition: width 0.3s ease;
       }
     }

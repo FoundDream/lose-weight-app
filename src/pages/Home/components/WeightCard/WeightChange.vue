@@ -39,36 +39,36 @@ const changeText = computed(() => {
   .change-indicator {
     display: flex;
     align-items: center;
-    gap: 4px;
-    margin-bottom: 4px;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 14px;
+    gap: @spacing-xs;
+    margin-bottom: @spacing-xs;
+    padding: @spacing-xs @spacing-sm;
+    border-radius: @border-radius-xl;
+    font-weight: @font-weight-semibold;
+    font-size: @font-size-sm;
 
     &.positive {
-      background: rgba(239, 68, 68, 0.1);
-      color: #fff;
+      background: fade(@color-danger, 20%);
+      color: @color-text-inverse;
     }
 
     &.negative {
-      background: rgba(16, 185, 129, 0.1);
-      color: #fff;
+      background: fade(@color-success, 20%);
+      color: @color-text-inverse;
     }
 
     &.neutral {
-      background: rgba(148, 163, 184, 0.1);
-      color: #fff;
+      background: fade(@color-text-tertiary, 20%);
+      color: @color-text-inverse;
     }
 
     .change-icon {
-      font-size: 16px;
+      font-size: @font-size-base;
     }
   }
 
   .change-label {
-    font-size: 12px;
-    color: #fff;
+    font-size: @font-size-xs;
+    color: @color-text-inverse;
   }
 }
 </style>

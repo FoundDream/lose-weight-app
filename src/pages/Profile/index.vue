@@ -49,27 +49,28 @@ const exerciseSuggestions = computed(() => userStore.exerciseSuggestions);
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 24px 20px 16px;
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  color: white;
+  padding: @spacing-lg @spacing-lg @spacing-md;
+  background: @gradient-primary;
+  color: @color-text-inverse;
 
   .header-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 4px;
+    .heading-3();
+    color: @color-text-inverse;
+    margin-bottom: @spacing-xs;
   }
 
   .header-subtitle {
-    font-size: 14px;
+    .body-small();
+    color: @color-text-inverse;
     opacity: 0.9;
   }
 }
 
 .main-content {
-  padding: 20px;
+  padding: @spacing-lg;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: @spacing-lg;
   padding-bottom: 100px; // 为底部导航留出空间
 }
 </style>

@@ -66,11 +66,6 @@ const weightStats = computed(() => weightStore.weightStats);
 </template>
 
 <style scoped lang="less">
-@primary-color: #6366f1;
-@bg-primary: #ffffff;
-@text-primary: #1e293b;
-@text-secondary: #64748b;
-
 .weight-management-page {
   min-height: 100vh;
 }
@@ -79,24 +74,23 @@ const weightStats = computed(() => weightStore.weightStats);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
-  color: white;
-  font-weight: 600;
+  padding: @spacing-md @spacing-lg;
+  background: @color-bg-primary;
+  border-bottom: @border-width solid @color-border;
 
   .header-title {
-    font-size: 20px;
+    .heading-4();
   }
 
   .header-date {
-    font-size: 14px;
-    opacity: 0.9;
+    .body-small();
   }
 }
 
 .main-content {
-  padding: 0 20px 20px;
+  padding: 0 @spacing-lg @spacing-lg;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: @spacing-lg;
 }
 </style>

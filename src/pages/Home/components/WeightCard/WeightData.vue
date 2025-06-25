@@ -27,9 +27,8 @@
 <style scoped lang="less">
 .weight-data {
   height: 64px;
-  opacity: 1;
-  border-radius: 10px;
-  background: rgba(111, 199, 211, 1);
+  border-radius: @border-radius-md;
+  background: @color-primary-dark;
   display: flex;
   justify-content: space-around;
 
@@ -38,9 +37,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 400;
+    color: @color-text-inverse;
+    font-size: @font-size-base;
+    font-weight: @font-weight-normal;
   }
 
   .weight-data-item-title {
@@ -48,17 +47,17 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: @spacing-xs;
 
     .weight-data-item-title-tag {
-      font-size: 10px;
+      font-size: @font-size-xs;
       text-align: center;
-      font-weight: 400;
-      color: rgba(86, 181, 199, 1);
-      background: rgba(255, 255, 255, 1);
-      border-radius: 4px;
-      width: 28px;
-      height: 14px;
+      font-weight: @font-weight-normal;
+      color: @color-primary;
+      background: @color-text-inverse;
+      border-radius: @border-radius-sm;
+      padding: 2px @spacing-xs;
+      line-height: 1;
     }
   }
 }

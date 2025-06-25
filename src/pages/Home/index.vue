@@ -57,15 +57,15 @@ const handleTargetWeightUpdate = (newTargetWeight: number) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
-  color: #333;
-  font-weight: 600;
+  padding: @spacing-md @spacing-lg;
+  color: @color-text-primary;
+  font-weight: @font-weight-semibold;
 
   .avatar {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background: #6366f1;
+    background: @gradient-primary;
     img {
       width: 100%;
       height: 100%;
@@ -75,9 +75,9 @@ const handleTargetWeightUpdate = (newTargetWeight: number) => {
 }
 
 .main-content {
-  padding: 0 20px 20px;
+  padding: 0 @spacing-lg @spacing-lg;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: @spacing-lg;
 }
 </style>

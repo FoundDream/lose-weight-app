@@ -15,8 +15,8 @@ import BottomNavigation from "./BottomNavigation.vue";
 .app-layout {
   min-height: 100vh;
   max-width: 100vw;
-  background: #f4f6f8;
-  font-family: "Space Grotesk", system-ui, sans-serif;
+  background: @color-bg-secondary;
+  font-family: @font-family-primary;
 
   .app-content {
     padding-bottom: 60px; // 为底部导航留出空间

@@ -1,0 +1,339 @@
+// ================================
+// 通用组件样式
+// ================================
+
+// 按钮组件
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: @spacing-sm @spacing-md;
+  border: @border-width solid transparent;
+  border-radius: @border-radius-md;
+  font-family: @font-family-primary;
+  font-size: @font-size-base;
+  font-weight: @font-weight-medium;
+  line-height: @line-height-normal;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all @transition-normal;
+  box-shadow: @shadow-none;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  // 按钮尺寸
+  &.btn-sm {
+    padding: @spacing-xs @spacing-sm;
+    font-size: @font-size-sm;
+    border-radius: @border-radius-sm;
+  }
+
+  &.btn-lg {
+    padding: @spacing-md @spacing-lg;
+    font-size: @font-size-lg;
+    border-radius: @border-radius-lg;
+  }
+
+  // 按钮变体
+  &.btn-primary {
+    background: @gradient-primary;
+    color: @color-text-inverse;
+    border-color: transparent;
+
+    &:hover:not(:disabled) {
+      background: @color-primary-dark;
+    }
+  }
+
+  &.btn-outline {
+    background: transparent;
+    color: @color-primary;
+    border-color: @color-primary;
+
+    &:hover:not(:disabled) {
+      background: @color-primary;
+      color: @color-text-inverse;
+    }
+  }
+
+  &.btn-ghost {
+    background: transparent;
+    color: @color-primary;
+    border-color: transparent;
+
+    &:hover:not(:disabled) {
+      background: @color-bg-secondary;
+    }
+  }
+
+  &.btn-success {
+    background: @color-success;
+    color: @color-text-inverse;
+    border-color: transparent;
+
+    &:hover:not(:disabled) {
+      background: darken(@color-success, 10%);
+    }
+  }
+
+  &.btn-danger {
+    background: @color-danger;
+    color: @color-text-inverse;
+    border-color: transparent;
+
+    &:hover:not(:disabled) {
+      background: darken(@color-danger, 10%);
+    }
+  }
+}
+
+// 卡片组件
+.card {
+  background: @color-bg-primary;
+  border: @border-width solid @color-border;
+  border-radius: @border-radius-lg;
+  padding: @spacing-lg;
+  box-shadow: @shadow-none;
+
+  &.card-sm {
+    padding: @spacing-md;
+    border-radius: @border-radius-md;
+  }
+
+  &.card-lg {
+    padding: @spacing-xl;
+    border-radius: @border-radius-xl;
+  }
+
+  // 卡片变体
+  &.card-elevated {
+    border: none;
+    background: @color-bg-primary;
+  }
+
+  &.card-outlined {
+    background: transparent;
+    border-color: @color-border;
+  }
+
+  &.card-primary {
+    background: @gradient-primary;
+    color: @color-text-inverse;
+    border: none;
+  }
+}
+
+.card-header {
+  margin-bottom: @spacing-md;
+  padding-bottom: @spacing-md;
+  border-bottom: @border-width solid @color-border-light;
+
+  .card-title {
+    .heading-4();
+    margin: 0;
+  }
+
+  .card-subtitle {
+    .body-small();
+    margin: @spacing-xs 0 0 0;
+  }
+}
+
+.card-content {
+  .body-normal();
+}
+
+.card-footer {
+  margin-top: @spacing-md;
+  padding-top: @spacing-md;
+  border-top: @border-width solid @color-border-light;
+}
+
+// 输入框组件
+.input {
+  width: 100%;
+  padding: @spacing-sm @spacing-md;
+  border: @border-width solid @color-border;
+  border-radius: @border-radius-md;
+  font-family: @font-family-primary;
+  font-size: @font-size-base;
+  line-height: @line-height-normal;
+  background: @color-bg-primary;
+  color: @color-text-primary;
+  transition: border-color @transition-normal;
+  box-shadow: @shadow-none;
+
+  &:focus {
+    outline: none;
+    border-color: @color-primary;
+  }
+
+  &:disabled {
+    background: @color-bg-tertiary;
+    color: @color-text-tertiary;
+    cursor: not-allowed;
+  }
+
+  &.input-sm {
+    padding: @spacing-xs @spacing-sm;
+    font-size: @font-size-sm;
+    border-radius: @border-radius-sm;
+  }
+
+  &.input-lg {
+    padding: @spacing-md @spacing-lg;
+    font-size: @font-size-lg;
+    border-radius: @border-radius-lg;
+  }
+
+  &.input-error {
+    border-color: @color-danger;
+  }
+}
+
+// 标签组件
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: @spacing-xs @spacing-sm;
+  border-radius: @border-radius-sm;
+  font-family: @font-family-primary;
+  font-size: @font-size-xs;
+  font-weight: @font-weight-medium;
+  line-height: @line-height-normal;
+
+  &.badge-primary {
+    background: fade(@color-primary, 10%);
+    color: @color-primary;
+  }
+
+  &.badge-success {
+    background: fade(@color-success, 10%);
+    color: @color-success;
+  }
+
+  &.badge-warning {
+    background: fade(@color-warning, 10%);
+    color: @color-warning;
+  }
+
+  &.badge-danger {
+    background: fade(@color-danger, 10%);
+    color: @color-danger;
+  }
+
+  &.badge-neutral {
+    background: @color-bg-tertiary;
+    color: @color-text-secondary;
+  }
+}
+
+// 分隔线
+.divider {
+  height: @border-width;
+  background: @color-border-light;
+  border: none;
+  margin: @spacing-md 0;
+
+  &.divider-vertical {
+    width: @border-width;
+    height: auto;
+    margin: 0 @spacing-md;
+  }
+}
+
+// 页面容器
+.page-container {
+  min-height: 100vh;
+  background: @color-bg-secondary;
+}
+
+.page-header {
+  padding: @spacing-lg @spacing-md;
+  background: @color-bg-primary;
+  border-bottom: @border-width solid @color-border-light;
+
+  .page-title {
+    .heading-2();
+    margin: 0;
+  }
+
+  .page-subtitle {
+    .body-small();
+    margin: @spacing-xs 0 0 0;
+  }
+}
+
+.page-content {
+  padding: @spacing-md;
+}
+
+// 网格布局
+.grid {
+  display: grid;
+  gap: @spacing-md;
+
+  &.grid-cols-1 {
+    grid-template-columns: 1fr;
+  }
+
+  &.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &.grid-cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Flex 布局工具
+.flex {
+  display: flex;
+
+  &.flex-col {
+    flex-direction: column;
+  }
+
+  &.items-center {
+    align-items: center;
+  }
+
+  &.items-start {
+    align-items: flex-start;
+  }
+
+  &.items-end {
+    align-items: flex-end;
+  }
+
+  &.justify-center {
+    justify-content: center;
+  }
+
+  &.justify-between {
+    justify-content: space-between;
+  }
+
+  &.justify-around {
+    justify-content: space-around;
+  }
+
+  &.gap-sm {
+    gap: @spacing-sm;
+  }
+
+  &.gap-md {
+    gap: @spacing-md;
+  }
+
+  &.gap-lg {
+    gap: @spacing-lg;
+  }
+}
