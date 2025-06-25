@@ -15,7 +15,7 @@ import BottomNavigation from "./BottomNavigation.vue";
 .app-layout {
   min-height: 100vh;
   max-width: 100vw;
-  background: linear-gradient(135deg, #6366f1 0%, #764ba2 100%);
+  background: #f4f6f8;
   font-family: "Space Grotesk", system-ui, sans-serif;
 
   .app-content {

@@ -19,13 +19,13 @@ defineProps<WeightDisplayProps>();
   .weight-number {
     font-size: 48px;
     font-weight: 700;
-    color: #1e293b;
+    color: #fff;
     line-height: 1;
   }
 
   .weight-unit {
     font-size: 18px;
-    color: #64748b;
+    color: #fff;
     margin-left: 4px;
   }
 }

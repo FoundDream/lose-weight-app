@@ -3,29 +3,29 @@ import { computed, onMounted } from "vue";
 import { useWeightStore } from "../../stores/weight";
 import WeightStats from "./components/WeightStats.vue";
 import QuickInput from "./components/QuickInput.vue";
-import WeightList from "./components/WeightList.vue";
-import WeightChart from "./components/WeightChart.vue";
+// import WeightList from "./components/WeightList.vue";
+// import WeightChart from "./components/WeightChart.vue";
 
 const weightStore = useWeightStore();
 
 // 初始化数据
 onMounted(() => {
-  weightStore.initMockData();
+  // weightStore.initMockData();
 });
 
 const currentWeight = computed(() => weightStore.currentWeight);
 const targetWeight = computed(() => weightStore.targetWeight);
 const unit = computed(() => weightStore.unit);
 const weightStats = computed(() => weightStore.weightStats);
-const recentRecords = computed(() => weightStore.recentRecords);
+// const recentRecords = computed(() => weightStore.recentRecords);
 
-const handleUpdateRecord = (id: string, updates: any) => {
-  weightStore.updateRecord(id, updates);
-};
+// const handleUpdateRecord = (id: string, updates: any) => {
+//   weightStore.updateRecord(id, updates);
+// };
 
-const handleDeleteRecord = (id: string) => {
-  weightStore.deleteRecord(id);
-};
+// const handleDeleteRecord = (id: string) => {
+//   weightStore.deleteRecord(id);
+// };
 </script>
 
 <template>
@@ -52,15 +52,15 @@ const handleDeleteRecord = (id: string) => {
       <QuickInput :unit="unit" />
 
       <!-- 趋势图表 -->
-      <WeightChart :records="recentRecords" :unit="unit" />
+      <!-- <WeightChart :records="recentRecords" :unit="unit" /> -->
 
       <!-- 历史记录列表 -->
-      <WeightList
+      <!-- <WeightList
         :records="recentRecords"
         :unit="unit"
         @update-record="handleUpdateRecord"
         @delete-record="handleDeleteRecord"
-      />
+      /> -->
     </div>
   </div>
 </template>
