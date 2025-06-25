@@ -10,14 +10,17 @@ const navItems: NavItem[] = [
   {
     name: "Home",
     path: "/",
-    // icon: "🏠",
     label: "首页",
   },
   {
     name: "WeightManagement",
     path: "/weight-management",
-    // icon: "📊",
     label: "体重管理",
+  },
+  {
+    name: "Profile",
+    path: "/profile",
+    label: "个人信息",
   },
 ];
 

@@ -20,6 +20,15 @@ const routes: RouteRecordRaw[] = [
       icon: "📊",
     },
   },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../pages/Profile/index.vue"),
+    meta: {
+      title: "个人信息",
+      icon: "👤",
+    },
+  },
 ];
 
 const router = createRouter({
