@@ -7,13 +7,11 @@ interface Props {
   unit: WeightUnit;
 }
 
-interface Emits {
-  "update-record": (id: string, updates: Partial<WeightRecord>) => void;
-  "delete-record": (id: string) => void;
-}
-
 defineProps<Props>();
-const emit = defineEmits(["update-record", "delete-record"]);
+const emit = defineEmits<{
+  "update-record": [id: string, updates: Partial<WeightRecord>];
+  "delete-record": [id: string];
+}>();
 
 const editingId = ref<string | null>(null);
 const editWeight = ref("");
@@ -66,13 +64,13 @@ const formatDate = (dateStr: string) => {
   return `${date.getMonth() + 1}月${date.getDate()}日`;
 };
 
-const getWeightChange = (currentRecord: WeightRecord, index: number) => {
-  if (index === 0) return null;
-
-  // 这里需要从完整记录列表中找到前一条记录
-  // 简化处理，假设records已经按日期排序
-  return null; // 暂时返回null，后续可以优化
-};
+// 暂时注释掉未使用的函数，后续可以根据需要启用
+// const getWeightChange = (currentRecord: WeightRecord, index: number) => {
+//   if (index === 0) return null;
+//   // 这里需要从完整记录列表中找到前一条记录
+//   // 简化处理，假设records已经按日期排序
+//   return null; // 暂时返回null，后续可以优化
+// };
 </script>
 
 <template>
@@ -83,11 +81,7 @@ const getWeightChange = (currentRecord: WeightRecord, index: number) => {
     </div>
 
     <div class="record-list">
-      <div
-        v-for="(record, index) in records"
-        :key="record.id"
-        class="record-item"
-      >
+      <div v-for="record in records" :key="record.id" class="record-item">
         <div class="record-date">
           <div class="date-text">{{ formatDate(record.date) }}</div>
           <div class="date-full">{{ record.date }}</div>
