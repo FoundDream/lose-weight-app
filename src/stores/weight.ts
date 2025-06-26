@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import type { WeightRecord, WeightUnit, WeightStats } from "../types/weight";
+import type { WeightUnit, WeightStats } from "../types/weight";
 import type {
   CalorieAnalysis,
   AnalysisHistory,

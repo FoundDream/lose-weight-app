@@ -33,7 +33,7 @@ const createFoodAnalysisPrompt = (foodInput: string): string => {
     {
       "name": "食物名称",
       "calories": 卡路里数值,
-      "unit": "单位（如：100g, 1个, 1杯等）",
+      "unit": "单位（如：g, 个, 杯等）",
       "quantity": 数量,
       "confidence": 0.95
     }
@@ -128,7 +128,7 @@ export const createMockAnalysis = (foodInput: string): OpenAIResponse => {
     {
       name: foodInput,
       calories: Math.floor(Math.random() * 500) + 100,
-      unit: "100g",
+      unit: "g",
       quantity: 1,
       confidence: 0.85,
     },

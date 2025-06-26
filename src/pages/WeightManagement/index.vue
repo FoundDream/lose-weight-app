@@ -30,14 +30,6 @@ const weightStats = computed(() => weightStore.weightStats);
 
 <template>
   <div class="weight-management-page">
-    <!-- 头部 -->
-    <div class="page-header">
-      <div class="header-title">体重管理</div>
-      <div class="header-date">
-        {{ new Date().toLocaleDateString("zh-CN") }}
-      </div>
-    </div>
-
     <!-- 主要内容 -->
     <div class="main-content">
       <!-- 统计卡片 -->
@@ -69,24 +61,6 @@ const weightStats = computed(() => weightStore.weightStats);
 .weight-management-page {
   min-height: 100vh;
 }
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: @spacing-md @spacing-lg;
-  background: @color-bg-primary;
-  border-bottom: @border-width solid @color-border;
-
-  .header-title {
-    .heading-4();
-  }
-
-  .header-date {
-    .body-small();
-  }
-}
-
 .main-content {
   padding: 0 @spacing-lg @spacing-lg;
   display: flex;

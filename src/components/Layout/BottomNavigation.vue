@@ -15,12 +15,12 @@ const navItems: NavItem[] = [
   {
     name: "WeightManagement",
     path: "/weight-management",
-    label: "体重管理",
+    label: "体重",
   },
   {
     name: "Profile",
     path: "/profile",
-    label: "个人信息",
+    label: "我的",
   },
 ];
 
@@ -32,7 +32,7 @@ const handleNavClick = (path: string) => {
 </script>
 
 <template>
-  <div class="bottom-navigation">
+  <div class="top-navigation">
     <div
       v-for="item in navItems"
       :key="item.name"
@@ -41,54 +41,67 @@ const handleNavClick = (path: string) => {
       @click="handleNavClick(item.path)"
     >
       <div class="nav-label">{{ item.label }}</div>
+      <div v-if="currentPath === item.path" class="nav-indicator"></div>
     </div>
   </div>
 </template>
 
 <style scoped lang="less">
-.bottom-navigation {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: @color-bg-primary;
-  border-top: @border-width solid @color-border;
+.top-navigation {
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  box-shadow: @shadow-none;
-  z-index: @z-index-fixed;
+  padding: @spacing-md;
+  border-bottom: 1px solid @color-border-light;
+  gap: @spacing-md;
+  margin-bottom: @spacing-sm;
+  height: 60px;
 
   .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: @spacing-sm @spacing-md;
+    position: relative;
     cursor: pointer;
+    padding: @spacing-sm 0;
     transition: all @transition-normal;
-    border-radius: @border-radius-md;
-    min-width: 60px;
 
-    &:hover {
-      background: fade(@color-primary, 10%);
+    .nav-label {
+      font-size: @font-size-base;
+      font-weight: @font-weight-semibold;
+      color: @color-text-tertiary;
+      transition: all @transition-normal;
+      white-space: nowrap;
+    }
+
+    .nav-indicator {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: @color-primary;
+      border-radius: 2px;
+      animation: slideIn 0.3s ease-out;
     }
 
     &.active {
-      background: fade(@color-primary, 10%);
-
       .nav-label {
-        color: @color-primary;
+        color: @color-text-primary;
         font-weight: @font-weight-semibold;
+        font-size: @font-size-lg;
       }
     }
 
-    .nav-label {
-      font-size: @font-size-xs;
-      color: @color-text-secondary;
-      transition: all @transition-normal;
+    &:hover:not(.active) {
+      .nav-label {
+        color: @color-text-secondary;
+      }
     }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 </style>

@@ -241,7 +241,7 @@ const selectTemplate = (template: InputTemplate) => {
     .toggle-btn {
       background: none;
       border: none;
-      color: #6366f1;
+      color: @color-primary;
       font-size: 12px;
       cursor: pointer;
       padding: 4px 8px;
@@ -302,23 +302,22 @@ const selectTemplate = (template: InputTemplate) => {
     margin-bottom: 8px;
 
     .quick-btn {
-      background: #eef2ff;
-      border: 1px solid #c7d2fe;
+      background: @color-primary;
       border-radius: 8px;
       padding: 4px 8px;
       font-size: 12px;
-      color: #4338ca;
+      color: @color-text-inverse;
       cursor: pointer;
       transition: all 0.2s;
       font-weight: 500;
 
       &:hover {
-        background: #e0e7ff;
-        border-color: #a5b4fc;
+        background: @color-primary;
+        border-color: @color-primary;
       }
 
       &:active {
-        background: #c7d2fe;
+        background: @color-primary;
       }
     }
   }

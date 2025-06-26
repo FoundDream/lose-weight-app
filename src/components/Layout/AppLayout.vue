@@ -4,10 +4,10 @@ import BottomNavigation from "./BottomNavigation.vue";
 
 <template>
   <div class="app-layout">
+    <BottomNavigation />
     <div class="app-content">
       <router-view />
     </div>
-    <BottomNavigation />
   </div>
 </template>
 
@@ -19,7 +19,7 @@ import BottomNavigation from "./BottomNavigation.vue";
   font-family: @font-family-primary;
 
   .app-content {
-    padding-bottom: 60px; // 为底部导航留出空间
+    padding-bottom: 60px; // 调整为适合底部导航的高度
   }
 }
 </style>
