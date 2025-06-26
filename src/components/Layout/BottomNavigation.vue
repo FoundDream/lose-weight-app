@@ -50,11 +50,11 @@ const handleNavClick = (path: string) => {
 .top-navigation {
   display: flex;
   align-items: center;
-  padding: @spacing-md;
+  padding: 0 @spacing-md;
   border-bottom: 1px solid @color-border-light;
   gap: @spacing-md;
   margin-bottom: @spacing-sm;
-  height: 60px;
+  height: 40px;
 
   .nav-item {
     position: relative;
