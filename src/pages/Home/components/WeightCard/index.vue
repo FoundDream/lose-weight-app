@@ -1,31 +1,40 @@
 <template>
-  <div class="weight-card-progress">
-    <!-- 左侧蓝色区域 - 还需减重 -->
-    <div
-      class="weight-section current"
-      :style="{ flex: progressGradient.completed }"
-    >
-      <div class="weight-content">
-        <div class="weight-value">
-          <span class="integer-part">{{ Math.floor(alreadyLose) }}</span>
-          <span class="decimal-part"
-            >.{{ (alreadyLose % 1).toFixed(2).slice(2) }}</span
-          >
+  <div class="weight-card">
+    <div class="weight-card-progress">
+      <div class="weight-card-background-left" />
+      <div class="weight-card-background-right" />
+      <div
+        class="weight-section current"
+        :style="{ flex: progressGradient.completed }"
+      >
+        <div class="weight-content">
+          <div class="weight-value">
+            <span class="integer-part">{{ Math.floor(alreadyLose) }}</span>
+            <span class="decimal-part"
+              >.{{ (alreadyLose % 1).toFixed(2).slice(2) }}</span
+            >
+          </div>
+          <div class="weight-label">已减重kg</div>
         </div>
-        <div class="weight-label">已减重kg</div>
+      </div>
+
+      <!-- 右侧灰色区域 - 已减重 -->
+      <div
+        class="weight-section target"
+        :style="{ flex: progressGradient.remaining }"
+      >
+        <div class="weight-content">
+          <div class="weight-value">
+            {{ needToLose.toFixed(2) }}
+          </div>
+          <div class="weight-label">还需减重kg</div>
+        </div>
       </div>
     </div>
-
-    <!-- 右侧灰色区域 - 已减重 -->
-    <div
-      class="weight-section target"
-      :style="{ flex: progressGradient.remaining }"
-    >
-      <div class="weight-content">
-        <div class="weight-value">
-          {{ needToLose.toFixed(2) }}
-        </div>
-        <div class="weight-label">还需减重kg</div>
+    <div class="weight-card-footer">
+      <div class="weight-card-footer-item">
+        Powered by ChatGPT
+        <img :src="logo" alt="logo" class="weight-card-footer-item-logo" />
       </div>
     </div>
   </div>
@@ -33,6 +42,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import logo from "@/assets/openai.svg";
 
 interface WeightCardProps {
   currentWeight: number;
@@ -84,16 +94,40 @@ const progressGradient = computed(() => {
 </script>
 
 <style scoped lang="less">
+.weight-card-background-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  z-index: 1;
+}
+
+.weight-card-background-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  z-index: 1;
+}
+
 .weight-card-progress {
+  position: relative;
+  z-index: 10;
   display: flex;
-  border-radius: 16px;
   overflow: hidden;
   min-height: 100px;
-  box-shadow: 0 4px 20px rgba(79, 124, 255, 0.15);
   background: @color-primary-light;
+  border-radius: 16px 16px 0 0;
 }
 
 .weight-section {
+  border-radius: 16px;
+  position: relative;
+  z-index: 10;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -141,6 +175,7 @@ const progressGradient = computed(() => {
 
   &.target {
     color: @color-text-tertiary;
+    background: @color-primary-light;
 
     .weight-content {
       display: flex;
@@ -162,6 +197,29 @@ const progressGradient = computed(() => {
         font-weight: 500;
         color: @color-text-tertiary;
       }
+    }
+  }
+}
+
+.weight-card-footer {
+  z-index: 10;
+  height: 40px;
+  background: #fff;
+  border-radius: 0 0 16px 16px;
+
+  .weight-card-footer-item {
+    font-size: 12px;
+    color: @color-text-tertiary;
+    text-align: center;
+    line-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    .weight-card-footer-item-logo {
+      width: 16px;
+      height: 16px;
     }
   }
 }

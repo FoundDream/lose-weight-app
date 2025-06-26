@@ -13,11 +13,6 @@ const navItems: NavItem[] = [
     label: "首页",
   },
   {
-    name: "WeightManagement",
-    path: "/weight-management",
-    label: "体重",
-  },
-  {
     name: "Profile",
     path: "/profile",
     label: "我的",

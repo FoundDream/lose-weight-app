@@ -12,15 +12,6 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: "/weight-management",
-    name: "WeightManagement",
-    component: () => import("../pages/WeightManagement/index.vue"),
-    meta: {
-      title: "体重管理",
-      icon: "📊",
-    },
-  },
-  {
     path: "/profile",
     name: "Profile",
     component: () => import("../pages/Profile/index.vue"),

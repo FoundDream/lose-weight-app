@@ -3,6 +3,7 @@ import { computed } from "vue";
 import WeightCard from "./components/WeightCard/index.vue";
 import { useWeightStore } from "../../stores/weight";
 import AiClario from "./components/AiClario/index.vue";
+import WeightTrendChart from "./components/WeightTrendChart/index.vue";
 
 const weightStore = useWeightStore();
 
@@ -15,15 +16,6 @@ const weightUnit = computed(() => weightStore.unit);
 
 <template>
   <div class="home-page">
-    <!-- 头部 -->
-    <!-- <div class="app-header">
-      <div class="app-header-left">
-        <div class="avatar">
-          <img src="https://picsum.photos/200/300" alt="avatar" />
-        </div>
-      </div>
-    </div> -->
-
     <!-- 主要内容 -->
     <div class="main-content">
       <!-- 体重卡片 -->
@@ -33,6 +25,9 @@ const weightUnit = computed(() => weightStore.unit);
         :original-weight="originalWeight"
         :unit="weightUnit"
       />
+
+      <!-- 体重趋势图表 -->
+      <WeightTrendChart />
 
       <!-- AI热量计算卡片 -->
       <AiClario />
