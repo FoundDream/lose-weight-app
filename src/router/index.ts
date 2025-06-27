@@ -1,14 +1,24 @@
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
+import { useUserStore } from "../stores/user";
 
 const routes: RouteRecordRaw[] = [
+  {
+    path: "/auth",
+    name: "Auth",
+    component: () => import("../pages/Auth/index.vue"),
+    meta: {
+      title: "登录注册",
+      requiresGuest: true, // 仅游客可访问
+    },
+  },
   {
     path: "/",
     name: "Home",
     component: () => import("../pages/Home/index.vue"),
     meta: {
       title: "首页",
-      icon: "🏠",
+      requiresAuth: true, // 需要登录
     },
   },
   {
@@ -17,7 +27,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import("../pages/Profile/index.vue"),
     meta: {
       title: "个人信息",
-      icon: "👤",
+      requiresAuth: true, // 需要登录
     },
   },
 ];
@@ -25,6 +35,8 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  // 当用户使用浏览器的前进/后退按钮时，页面会回到之前离开时的滚动位置，提供原生浏览器的导航体验。
+  // 当用户通过应用程序内部的链接跳转到新页面时，页面会自动滚动到顶部，确保用户从新页面的开头开始浏览。
   scrollBehavior(_to, _from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
@@ -36,11 +48,27 @@ const router = createRouter({
 
 // 路由守卫
 router.beforeEach((to, _from, next) => {
+  const userStore = useUserStore();
+
   // 设置页面标题
   if (to.meta?.title) {
     document.title = `${to.meta.title} - 减肥助手`;
   }
-  next();
+
+  // 检查认证状态
+  const requiresAuth = to.meta?.requiresAuth;
+  const requiresGuest = to.meta?.requiresGuest;
+  const isAuthenticated = userStore.isAuthenticated; // 从store中获取认证状态，判断是否需要登录
+
+  if (requiresAuth && !isAuthenticated) {
+    // 需要登录但未登录，重定向到登录页
+    next({ name: "Auth", query: { redirect: to.fullPath } });
+  } else if (requiresGuest && isAuthenticated) {
+    // 已登录用户访问游客页面，重定向到首页
+    next({ name: "Home" });
+  } else {
+    next();
+  }
 });
 
 export default router;

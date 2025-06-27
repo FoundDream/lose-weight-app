@@ -7,14 +7,24 @@ import type {
   WeightLossAnalysisRequest,
   WeightLossAnalysisResponse,
 } from "../types/user";
+import type { AuthUser, LoginRequest, RegisterRequest } from "../types/auth";
 import { Gender, ActivityLevel } from "../types/user";
 import {
   analyzeWeightLossPlan,
   createMockWeightLossPlan,
   checkApiConfiguration,
 } from "../services/openai";
+import { authService } from "../services/auth";
 
 interface UserState {
+  // 认证相关状态
+  isAuthenticated: boolean;
+  token: string | null;
+  authUser: AuthUser | null;
+  authLoading: boolean;
+  authError: string | null;
+
+  // 用户资料相关状态
   profile: UserProfile | null;
   isProfileComplete: boolean;
   currentPlan: WeightLossPlan | null;
@@ -26,6 +36,14 @@ interface UserState {
 
 export const useUserStore = defineStore("user", {
   state: (): UserState => ({
+    // 认证相关状态初始化
+    isAuthenticated: false,
+    token: null,
+    authUser: null,
+    authLoading: false,
+    authError: null,
+
+    // 用户资料相关状态初始化
     profile: null,
     isProfileComplete: false,
     currentPlan: null,
@@ -199,6 +217,87 @@ export const useUserStore = defineStore("user", {
       this.exerciseSuggestions = [];
       this.healthMetrics = null;
       this.analysisError = null;
+    },
+
+    // === 认证相关方法 ===
+
+    // 初始化认证状态
+    initAuth() {
+      const token = authService.getToken();
+      if (token) {
+        this.token = token;
+        this.isAuthenticated = true;
+        // 这里可以添加验证token有效性的逻辑
+      }
+    },
+
+    // 用户登录
+    async login(request: LoginRequest) {
+      this.authLoading = true;
+      this.authError = null;
+
+      try {
+        const response = await authService.login(request);
+
+        // 保存认证信息
+        this.token = response.data.token;
+        this.authUser = response.data.user;
+        this.isAuthenticated = true;
+
+        // 存储token到localStorage
+        authService.setToken(response.data.token);
+
+        return response;
+      } catch (error: any) {
+        this.authError = error.message;
+        throw error;
+      } finally {
+        this.authLoading = false;
+      }
+    },
+
+    // 用户注册
+    async register(request: RegisterRequest) {
+      this.authLoading = true;
+      this.authError = null;
+
+      try {
+        const response = await authService.register(request);
+
+        // 保存认证信息
+        this.token = response.data.token;
+        this.authUser = response.data.user;
+        this.isAuthenticated = true;
+
+        // 存储token到localStorage
+        authService.setToken(response.data.token);
+
+        return response;
+      } catch (error: any) {
+        this.authError = error.message;
+        throw error;
+      } finally {
+        this.authLoading = false;
+      }
+    },
+
+    // 用户登出
+    logout() {
+      this.token = null;
+      this.authUser = null;
+      this.isAuthenticated = false;
+      this.authError = null;
+
+      // 清除localStorage中的token
+      authService.clearToken();
+
+      // 清除用户资料数据
+      this.resetProfile();
+    },
+
+    // 清除认证错误
+    clearAuthError() {
+      this.authError = null;
     },
   },
 });

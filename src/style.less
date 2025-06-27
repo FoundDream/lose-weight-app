@@ -9,6 +9,8 @@ html {
   font-family: @font-family-primary;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
+  -ms-overflow-style: none; /* IE 和 Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 body {
@@ -18,6 +20,8 @@ body {
   background-color: @color-bg-secondary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -ms-overflow-style: none; /* IE 和 Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* 移动端优化 */
@@ -48,7 +52,7 @@ img {
 
 /* 滚动条样式（webkit） */
 ::-webkit-scrollbar {
-  width: 6px;
+  display: none;
 
   &-track {
     background: @color-bg-tertiary;
