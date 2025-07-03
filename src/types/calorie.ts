@@ -68,3 +68,60 @@ export interface AnalysisError {
   code: string;
   details?: any;
 }
+
+// 热量统计数据类型
+export interface CalorieStats {
+  today: {
+    consumed: number;
+    goal: number;
+    remaining: number;
+    percentage: number;
+  };
+  week: {
+    average: number;
+    total: number;
+    days: number;
+  };
+  month: {
+    average: number;
+    total: number;
+    days: number;
+  };
+}
+
+// 热量记录过滤器类型
+export interface CalorieFilter {
+  dateRange: {
+    start: Date | null;
+    end: Date | null;
+  };
+  searchText: string;
+  sortBy: "date" | "calories" | "confidence";
+  sortOrder: "asc" | "desc";
+}
+
+// 营养成分百分比类型
+export interface NutritionPercentage {
+  protein: number;
+  carbs: number;
+  fat: number;
+  fiber: number;
+}
+
+// 快速录入模板类型（扩展）
+export interface QuickInputTemplate {
+  id: string;
+  name: string;
+  description: string;
+  estimatedCalories: number;
+  category: "breakfast" | "lunch" | "dinner" | "snack";
+  icon: string;
+}
+
+// 热量趋势数据类型
+export interface CalorieTrend {
+  date: string;
+  consumed: number;
+  goal: number;
+  deficit: number;
+}

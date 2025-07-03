@@ -13,6 +13,11 @@ const navItems: NavItem[] = [
     label: "首页",
   },
   {
+    name: "Calorie",
+    path: "/calorie",
+    label: "热量",
+  },
+  {
     name: "Profile",
     path: "/profile",
     label: "我的",

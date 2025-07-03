@@ -29,10 +29,7 @@ onUnmounted(() => {
 <template>
   <div class="auth-page">
     <div class="auth-container">
-      <div class="auth-header">
-        <h1 class="app-title">减肥助手</h1>
-        <p class="app-subtitle">开启你的健康减肥之旅</p>
-      </div>
+      <div class="auth-header"></div>
 
       <!-- Tab切换 -->
       <div class="auth-tabs-container">
@@ -71,14 +68,14 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   font-family: @font-family-primary;
-  background-color: black;
+  background-color: @color-primary;
 }
 
 .auth-tabs-container {
   background-color: @color-bg-primary;
   border-radius: @border-radius-lg @border-radius-lg 0 0;
   flex: 1;
-  padding: 16px;
+  padding: 24px;
 }
 
 .auth-container {

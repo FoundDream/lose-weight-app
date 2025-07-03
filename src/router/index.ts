@@ -22,6 +22,15 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/calorie",
+    name: "Calorie",
+    component: () => import("../pages/Calorie/index.vue"),
+    meta: {
+      title: "热量",
+      requiresAuth: true, // 需要登录
+    },
+  },
+  {
     path: "/profile",
     name: "Profile",
     component: () => import("../pages/Profile/index.vue"),
