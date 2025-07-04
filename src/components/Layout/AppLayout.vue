@@ -1,6 +1,6 @@
 <template>
   <div class="app-layout">
-    <template v-if="route.name !== 'Auth'">
+    <template v-if="route.name !== 'Auth' && route.name !== 'Onboarding'">
       <BottomNavigation />
     </template>
     <div class="app-content">
@@ -20,6 +20,5 @@ const route = useRoute();
   height: 100vh;
   max-width: 100vw;
   background: @color-bg-secondary;
-  font-family: @font-family-primary;
 }
 </style>

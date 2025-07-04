@@ -4,6 +4,15 @@ import { useUserStore } from "../stores/user";
 
 const routes: RouteRecordRaw[] = [
   {
+    path: "/onboarding",
+    name: "Onboarding",
+    component: () => import("../pages/Onboarding/index.vue"),
+    meta: {
+      title: "用户引导",
+      requiresAuth: false, // 不需要登录
+    },
+  },
+  {
     path: "/auth",
     name: "Auth",
     component: () => import("../pages/Auth/index.vue"),

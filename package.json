@@ -10,6 +10,7 @@
     "lint": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@varlet/ui": "^3.11.0",
     "axios": "^1.10.0",
     "chart.js": "^4.5.0",
     "dotenv": "^16.5.0",
@@ -21,11 +22,14 @@
   "devDependencies": {
     "@iconify/vue": "^5.0.0",
     "@types/node": "^24.0.4",
+    "@varlet/import-resolver": "^3.11.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.7.0",
     "less": "^4.3.0",
     "postcss-px-to-viewport": "^1.1.1",
     "typescript": "~5.8.3",
+    "unplugin-auto-import": "^19.3.0",
+    "unplugin-vue-components": "^28.8.0",
     "vite": "^7.0.0",
     "vite-plugin-pwa": "^1.0.0",
     "vue-tsc": "^2.2.10"

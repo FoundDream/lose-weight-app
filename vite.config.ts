@@ -2,11 +2,20 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { VitePWA } from "vite-plugin-pwa";
 import path from "path";
+import components from "unplugin-vue-components/vite";
+import autoImport from "unplugin-auto-import/vite";
+import { VarletImportResolver } from "@varlet/import-resolver";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
+    components({
+      resolvers: [VarletImportResolver()],
+    }),
+    autoImport({
+      resolvers: [VarletImportResolver({ autoImport: true })],
+    }),
     VitePWA({
       registerType: "prompt",
       includeAssets: ["vite.svg", "icon-192x192.png", "icon-512x512.png"],
