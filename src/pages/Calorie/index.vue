@@ -1,11 +1,5 @@
 <template>
-  <div class="calorie-page">
-    <!-- 页面标题 -->
-    <div class="page-header">
-      <h2>热量管理</h2>
-      <p class="page-subtitle">智能记录，科学管理你的每日热量摄入</p>
-    </div>
-  </div>
+  <div class="calorie-page"></div>
 </template>
 
 <script setup lang="ts"></script>

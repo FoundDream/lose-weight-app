@@ -198,9 +198,7 @@ function onSimpleSliderClick(e: MouseEvent) {
   form.targetWeight = value;
 }
 // 拖动手柄
-let draggingSimple = false;
 function onSimpleThumbDown(_e: MouseEvent | TouchEvent) {
-  draggingSimple = true;
   const move = (ev: MouseEvent | TouchEvent) => {
     const clientX = "touches" in ev ? ev.touches[0].clientX : ev.clientX;
     if (!simpleSliderRef.value) return;
@@ -213,7 +211,6 @@ function onSimpleThumbDown(_e: MouseEvent | TouchEvent) {
     form.targetWeight = value;
   };
   const up = () => {
-    draggingSimple = false;
     window.removeEventListener("mousemove", move);
     window.removeEventListener("touchmove", move);
     window.removeEventListener("mouseup", up);

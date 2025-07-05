@@ -10,15 +10,10 @@ declare module 'vue' {
   export interface GlobalComponents {
     AppLayout: typeof import('./src/components/Layout/AppLayout.vue')['default']
     BottomNavigation: typeof import('./src/components/Layout/BottomNavigation.vue')['default']
-    Button: typeof import('./src/components/Button.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VarButton: typeof import('@varlet/ui')['_ButtonComponent']
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
-    VarInput: typeof import('@varlet/ui')['_InputComponent']
     VarPicker: typeof import('@varlet/ui')['_PickerComponent']
-    VarRadio: typeof import('@varlet/ui')['_RadioComponent']
-    VarRadioGroup: typeof import('@varlet/ui')['_RadioGroupComponent']
-    VarStyleProvider: typeof import('@varlet/ui')['_StyleProviderComponent']
   }
 }
