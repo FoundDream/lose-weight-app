@@ -36,21 +36,28 @@ export interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    name: "Home",
+    name: "首页",
     path: "/",
     label: "首页",
     icon: "material-symbols-light:home-outline",
     iconActive: "material-symbols-light:home",
   },
   {
-    name: "Calorie",
-    path: "/calorie",
-    label: "热量",
-    icon: "fluent:food-28-regular",
-    iconActive: "fluent:food-28-filled",
+    name: "目标",
+    path: "/target",
+    label: "目标",
+    icon: "ph:target-light",
+    iconActive: "ph:target-fill",
   },
   {
-    name: "Profile",
+    name: "断食",
+    path: "/fasting",
+    label: "断食",
+    icon: "mingcute:time-line",
+    iconActive: "mingcute:time-fill",
+  },
+  {
+    name: "我的",
     path: "/profile",
     label: "我的",
     icon: "weui:me-outlined",

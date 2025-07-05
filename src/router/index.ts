@@ -30,11 +30,20 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: "/calorie",
-    name: "Calorie",
-    component: () => import("../pages/Calorie/index.vue"),
+    path: "/target",
+    name: "Target",
+    component: () => import("../pages/Target/index.vue"),
     meta: {
-      title: "热量",
+      title: "目标",
+      requiresAuth: true, // 需要登录
+    },
+  },
+  {
+    path: "/fasting",
+    name: "Fasting",
+    component: () => import("../pages/Fasting/index.vue"),
+    meta: {
+      title: "16+8断食",
       requiresAuth: true, // 需要登录
     },
   },

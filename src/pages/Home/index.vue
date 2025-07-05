@@ -5,7 +5,7 @@
       <div class="avatar-wrap">
         <img :src="user.avatar" alt="avatar" class="avatar" />
       </div>
-      <div class="welcome">Home</div>
+      <div class="welcome">首页</div>
       <var-icon name="bell" />
     </div>
 
@@ -14,7 +14,7 @@
       <div class="weight-card-main">
         <div class="weight-info">
           <span class="weight-value-text">2500</span>
-          <span class="weight-value-unit">Calories left</span>
+          <span class="weight-value-unit">剩余卡路里</span>
         </div>
         <div class="chart-wrap">
           <canvas ref="doughnutChart" width="120" height="120"></canvas>
@@ -206,6 +206,7 @@ onMounted(() => {
 
 <style scoped lang="less">
 .home-page {
+  min-height: 100vh;
   padding: 12px;
   background: #f6f6f6;
   display: flex;

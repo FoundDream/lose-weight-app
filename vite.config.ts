@@ -5,7 +5,7 @@ import path from "path";
 import components from "unplugin-vue-components/vite";
 import autoImport from "unplugin-auto-import/vite";
 import { VarletImportResolver } from "@varlet/import-resolver";
-
+import icon from "@varlet/unplugin-icon-builder/vite";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -16,6 +16,7 @@ export default defineConfig({
     autoImport({
       resolvers: [VarletImportResolver({ autoImport: true })],
     }),
+    icon(),
     VitePWA({
       registerType: "prompt",
       includeAssets: ["vite.svg", "icon-192x192.png", "icon-512x512.png"],

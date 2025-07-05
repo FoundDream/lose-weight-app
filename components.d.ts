@@ -13,7 +13,11 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VarButton: typeof import('@varlet/ui')['_ButtonComponent']
+    VarChip: typeof import('@varlet/ui')['_ChipComponent']
+    VarDialog: typeof import('@varlet/ui')['_DialogComponent']
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
+    VarInput: typeof import('@varlet/ui')['_InputComponent']
     VarPicker: typeof import('@varlet/ui')['_PickerComponent']
+    VarPopup: typeof import('@varlet/ui')['_PopupComponent']
   }
 }

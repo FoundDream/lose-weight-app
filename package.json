@@ -23,6 +23,7 @@
     "@iconify/vue": "^5.0.0",
     "@types/node": "^24.0.4",
     "@varlet/import-resolver": "^3.11.0",
+    "@varlet/unplugin-icon-builder": "^0.6.0",
     "@vitejs/plugin-vue": "^6.0.0",
     "@vue/tsconfig": "^0.7.0",
     "less": "^4.3.0",
