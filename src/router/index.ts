@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
-import { useUserStore } from "../stores/user";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -64,29 +63,29 @@ const router = createRouter({
   },
 });
 
-// 路由守卫
-router.beforeEach((to, _from, next) => {
-  const userStore = useUserStore();
+// // 路由守卫
+// router.beforeEach((to, _from, next) => {
+//   const userStore = useUserStore();
 
-  // 设置页面标题
-  if (to.meta?.title) {
-    document.title = `${to.meta.title} - 减肥助手`;
-  }
+//   // 设置页面标题
+//   if (to.meta?.title) {
+//     document.title = `${to.meta.title} - 减肥助手`;
+//   }
 
-  // 检查认证状态
-  const requiresAuth = to.meta?.requiresAuth;
-  const requiresGuest = to.meta?.requiresGuest;
-  const isAuthenticated = userStore.isAuthenticated; // 从store中获取认证状态，判断是否需要登录
+//   // 检查认证状态
+//   const requiresAuth = to.meta?.requiresAuth;
+//   const requiresGuest = to.meta?.requiresGuest;
+//   const isAuthenticated = userStore.isAuthenticated; // 从store中获取认证状态，判断是否需要登录
 
-  if (requiresAuth && !isAuthenticated) {
-    // 需要登录但未登录，重定向到登录页
-    next({ name: "Auth", query: { redirect: to.fullPath } });
-  } else if (requiresGuest && isAuthenticated) {
-    // 已登录用户访问游客页面，重定向到首页
-    next({ name: "Home" });
-  } else {
-    next();
-  }
-});
+//   if (requiresAuth && !isAuthenticated) {
+//     // 需要登录但未登录，重定向到登录页
+//     next({ name: "Auth", query: { redirect: to.fullPath } });
+//   } else if (requiresGuest && isAuthenticated) {
+//     // 已登录用户访问游客页面，重定向到首页
+//     next({ name: "Home" });
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;

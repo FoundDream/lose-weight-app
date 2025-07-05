@@ -15,6 +15,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     VarButton: typeof import('@varlet/ui')['_ButtonComponent']
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
+    VarInput: typeof import('@varlet/ui')['_InputComponent']
     VarPicker: typeof import('@varlet/ui')['_PickerComponent']
     VarRadio: typeof import('@varlet/ui')['_RadioComponent']
     VarRadioGroup: typeof import('@varlet/ui')['_RadioGroupComponent']

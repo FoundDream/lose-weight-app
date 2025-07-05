@@ -1,29 +1,16 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import { useUserStore } from "../../stores/user";
+import { ref } from "vue";
 import LoginForm from "./components/LoginForm.vue";
 import RegisterForm from "./components/RegisterForm.vue";
 
 type AuthMode = "login" | "register";
 
-const userStore = useUserStore();
 const currentMode = ref<AuthMode>("login");
 
 // 切换模式
 const switchMode = (mode: AuthMode) => {
   currentMode.value = mode;
-  // 切换时清除错误信息
-  userStore.clearAuthError();
 };
-
-// 清除错误信息
-onMounted(() => {
-  userStore.clearAuthError();
-});
-
-onUnmounted(() => {
-  userStore.clearAuthError();
-});
 </script>
 
 <template>

@@ -1,10 +1,13 @@
 <template>
   <div class="app-layout">
-    <template v-if="route.name !== 'Auth' && route.name !== 'Onboarding'">
-      <BottomNavigation />
-    </template>
     <div class="app-content">
       <router-view />
+    </div>
+    <div
+      class="app-content-bottom"
+      v-if="route.name !== 'Auth' && route.name !== 'Onboarding'"
+    >
+      <BottomNavigation />
     </div>
   </div>
 </template>
@@ -19,6 +22,14 @@ const route = useRoute();
 .app-layout {
   height: 100vh;
   max-width: 100vw;
-  background: @color-bg-secondary;
+  background: @color-bg-primary;
+
+  .app-content-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
 }
 </style>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import { useUserStore } from "../../../stores/user";
 import { useRouter } from "vue-router";
 
 interface LoginForm {
@@ -8,7 +7,6 @@ interface LoginForm {
   password: string;
 }
 
-const userStore = useUserStore();
 const router = useRouter();
 
 const form = reactive<LoginForm>({
@@ -40,11 +38,6 @@ const handleSubmit = async () => {
   if (!validateForm()) return;
 
   try {
-    await userStore.login({
-      username: form.username,
-      password: form.password,
-    });
-
     // 登录成功，跳转到原页面或首页
     const redirect = router.currentRoute.value.query.redirect as string;
     router.push(redirect || "/");
@@ -93,18 +86,18 @@ const handleSubmit = async () => {
       </div>
 
       <!-- 全局错误提示 -->
-      <div v-if="userStore.authError" class="form-error">
+      <!-- <div v-if="userStore.authError" class="form-error">
         {{ userStore.authError }}
-      </div>
+      </div> -->
 
       <!-- 提交按钮 -->
       <button
         type="submit"
         class="submit-btn"
-        :disabled="userStore.authLoading"
-        :class="{ 'submit-btn--loading': userStore.authLoading }"
+        :disabled="false"
+        :class="{ 'submit-btn--loading': false }"
       >
-        <span v-if="userStore.authLoading">登录中...</span>
+        <span v-if="false">登录中...</span>
         <span v-else>登录</span>
       </button>
     </form>

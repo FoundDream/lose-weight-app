@@ -1,5 +1,4 @@
 import OpenAI from "openai";
-import type { OpenAIResponse, AnalysisError } from "../types/calorie";
 
 // 初始化OpenAI客户端
 const createOpenAIClient = () => {
@@ -62,9 +61,7 @@ const createFoodAnalysisPrompt = (foodInput: string): string => {
 };
 
 // 分析食物的主要函数
-export const analyzeFoodCalories = async (
-  foodInput: string
-): Promise<OpenAIResponse> => {
+export const analyzeFoodCalories = async (foodInput: string): Promise<any> => {
   try {
     const client = createOpenAIClient();
 
@@ -93,7 +90,7 @@ export const analyzeFoodCalories = async (
 
     // 尝试解析JSON响应
     try {
-      const parsedResponse: OpenAIResponse = JSON.parse(response);
+      const parsedResponse: any = JSON.parse(response);
 
       // 验证响应格式
       if (!parsedResponse.foods || !Array.isArray(parsedResponse.foods)) {
@@ -112,7 +109,7 @@ export const analyzeFoodCalories = async (
   } catch (error: any) {
     console.error("OpenAI API Error:", error);
 
-    const analysisError: AnalysisError = {
+    const analysisError: any = {
       message: error.message || "Failed to analyze food calories",
       code: error.code || "ANALYSIS_ERROR",
       details: error,
@@ -120,36 +117,6 @@ export const analyzeFoodCalories = async (
 
     throw analysisError;
   }
-};
-
-// 创建模拟数据（用于开发测试，当API key未配置时使用）
-export const createMockAnalysis = (foodInput: string): OpenAIResponse => {
-  const mockFoods = [
-    {
-      name: foodInput,
-      calories: Math.floor(Math.random() * 500) + 100,
-      unit: "g",
-      quantity: 1,
-      confidence: 0.85,
-    },
-  ];
-
-  return {
-    foods: mockFoods,
-    nutrition: {
-      protein: Math.floor(Math.random() * 30) + 5,
-      carbs: Math.floor(Math.random() * 50) + 10,
-      fat: Math.floor(Math.random() * 20) + 2,
-      fiber: Math.floor(Math.random() * 10) + 1,
-      sugar: Math.floor(Math.random() * 15) + 2,
-    },
-    suggestions: [
-      "建议控制份量，避免过量摄入",
-      "可以搭配蔬菜增加饱腹感",
-      "注意饮食时间，避免睡前进食",
-    ],
-    confidence: 0.8,
-  };
 };
 
 // 检查API配置状态
@@ -295,102 +262,4 @@ export const analyzeWeightLossPlan = async (request: any): Promise<any> => {
     console.error("OpenAI API Error:", error);
     throw new Error(error.message || "Failed to analyze weight loss plan");
   }
-};
-
-// 创建模拟减肥规划数据
-export const createMockWeightLossPlan = (request: any): any => {
-  const { userProfile, currentWeight, targetWeight } = request;
-  const weightToLose = currentWeight - targetWeight;
-  const weeklyGoal = 0.5; // 每周0.5kg
-  const estimatedWeeks = Math.ceil(weightToLose / weeklyGoal);
-  const estimatedDays = estimatedWeeks * 7;
-
-  return {
-    plan: {
-      id: Date.now().toString(),
-      userId: userProfile.id,
-      currentWeight,
-      targetWeight,
-      estimatedDays,
-      estimatedWeeks,
-      weeklyGoal,
-      dailyCalorieDeficit: 400,
-      recommendedCalorieIntake: 1600,
-      confidence: 0.85,
-      createdAt: new Date(),
-      suggestions: [
-        "建议采用循序渐进的减重方式",
-        "结合有氧运动和力量训练",
-        "保持饮食多样化，避免极端节食",
-        "每天至少饮水8杯",
-        "保证充足睡眠，每晚7-8小时",
-      ],
-      milestones: [
-        {
-          weight: currentWeight - weightToLose * 0.3,
-          estimatedDate: new Date(
-            Date.now() + estimatedDays * 0.3 * 24 * 60 * 60 * 1000
-          ),
-          description: "第一阶段目标",
-        },
-        {
-          weight: currentWeight - weightToLose * 0.7,
-          estimatedDate: new Date(
-            Date.now() + estimatedDays * 0.7 * 24 * 60 * 60 * 1000
-          ),
-          description: "第二阶段目标",
-        },
-      ],
-    },
-    exercises: [
-      {
-        id: "1",
-        type: "cardio",
-        name: "快走",
-        description: "适合初学者的有氧运动",
-        duration: 30,
-        caloriesBurned: 150,
-        difficulty: "beginner",
-        equipment: ["运动鞋"],
-        instructions: ["保持匀速", "注意呼吸节奏", "循序渐进增加强度"],
-      },
-      {
-        id: "2",
-        type: "strength",
-        name: "深蹲",
-        description: "锻炼下肢肌肉力量",
-        duration: 15,
-        caloriesBurned: 80,
-        difficulty: "beginner",
-        equipment: [],
-        instructions: ["保持背部挺直", "膝盖不超过脚尖", "动作要标准"],
-      },
-      {
-        id: "3",
-        type: "cardio",
-        name: "游泳",
-        description: "全身有氧运动",
-        duration: 45,
-        caloriesBurned: 300,
-        difficulty: "intermediate",
-        equipment: ["泳衣", "泳镜"],
-        instructions: ["注意换气技巧", "保持稳定节奏", "量力而行"],
-      },
-    ],
-    healthMetrics: {
-      bmr: userProfile.gender === "male" ? 1800 : 1400,
-      tdee: userProfile.gender === "male" ? 2300 : 1800,
-      bmi: currentWeight / Math.pow(userProfile.height / 100, 2),
-      idealWeightRange: {
-        min: 18.5 * Math.pow(userProfile.height / 100, 2),
-        max: 23.9 * Math.pow(userProfile.height / 100, 2),
-      },
-    },
-    warnings: ["减重过程中如有不适请及时咨询医生", "不建议过度节食或极端运动"],
-    recommendations: [
-      "建议记录每日饮食和运动情况",
-      "定期测量体重和体脂率",
-      "保持积极心态，享受健康生活",
-    ],
-  };
 };
