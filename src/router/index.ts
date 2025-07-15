@@ -30,6 +30,15 @@ const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/ai-diet-suggestion",
+    name: "AIDietSuggestion",
+    component: () => import("../pages/AIDietSuggestion/index.vue"),
+    meta: {
+      title: "AI 饮食建议",
+      requiresAuth: true, // 需要登录
+    },
+  },
+  {
     path: "/target",
     name: "Target",
     component: () => import("../pages/Target/index.vue"),

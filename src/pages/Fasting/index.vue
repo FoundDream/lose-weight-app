@@ -194,9 +194,7 @@
       </div>
 
       <template #actions>
-        <button class="apply-btn" @click="saveTodaySchedule">
-          保存更改
-        </button>
+        <button class="apply-btn" @click="saveTodaySchedule">保存更改</button>
       </template>
     </var-dialog>
 
@@ -359,9 +357,10 @@ let timer: NodeJS.Timeout | null = null;
 
 // 计算属性
 const formattedTimeLeft = computed(() => {
-  const hours = Math.floor(timeLeft.value / 3600);
-  const minutes = Math.floor((timeLeft.value % 3600) / 60);
-  const seconds = timeLeft.value % 60;
+  const totalSeconds = Math.round(timeLeft.value);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
   return `${hours.toString().padStart(2, "0")}:${minutes
     .toString()
     .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
@@ -410,26 +409,19 @@ const updateFastingStatus = () => {
   const eatingStart = new Date(`${today} ${todaySchedule.value.eatingStart}`);
 
   if (fastingStart > eatingStart) {
-    // 跨天情况
-    if (
-      now.getHours() >=
-        parseInt(todaySchedule.value.fastingStart.split(":")[0]) ||
-      now.getHours() < parseInt(todaySchedule.value.eatingStart.split(":")[0])
-    ) {
-      isInFasting.value = true;
-    } else {
-      isInFasting.value = false;
-    }
+    // Eating window is on the same day, e.g., 12:00-20:00. Fasting is outside this window.
+    isInFasting.value = now < eatingStart || now >= fastingStart;
   } else {
-    // 同天情况
-    isInFasting.value = now < fastingStart || now >= eatingStart;
+    // Eating window crosses midnight, e.g., 22:00-06:00. Fasting is between the two times on the same day.
+    isInFasting.value = now >= fastingStart && now < eatingStart;
   }
 };
 
 const updateTimeLeft = () => {
   if (isManualActive.value && manualStartTime.value) {
-    const elapsed =
-      (currentTime.value.getTime() - manualStartTime.value.getTime()) / 1000;
+    const elapsed = Math.floor(
+      (currentTime.value.getTime() - manualStartTime.value.getTime()) / 1000
+    );
     timeLeft.value = Math.max(0, 16 * 3600 - elapsed);
     return;
   }
@@ -565,7 +557,6 @@ onUnmounted(() => {
   .main-content {
     width: 100%;
     max-width: 340px;
-    background: #ffffff;
     border-radius: 18px;
   }
 

@@ -5,7 +5,11 @@
     </div>
     <div
       class="app-content-bottom"
-      v-if="route.name !== 'Auth' && route.name !== 'Onboarding'"
+      v-if="
+        route.name !== 'Auth' &&
+        route.name !== 'Onboarding' &&
+        route.name !== 'AIDietSuggestion'
+      "
     >
       <BottomNavigation />
     </div>

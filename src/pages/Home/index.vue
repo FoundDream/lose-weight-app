@@ -6,7 +6,7 @@
         <img :src="user.avatar" alt="avatar" class="avatar" />
       </div>
       <div class="welcome">首页</div>
-      <var-icon name="bell" />
+      <Icon icon="pepicons-pop:dots-x" width="24" height="24" />
     </div>
 
     <!-- 体重卡片（环形进度+BMI） -->
@@ -36,7 +36,7 @@
         />
         <span>记录卡路里</span>
       </div>
-      <div class="calorie-card">
+      <div class="calorie-card" @click="goToAIDietSuggestion">
         <Icon
           icon="hugeicons:chat-gpt"
           width="32"
@@ -83,6 +83,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { Icon } from "@iconify/vue";
 import {
   Chart,
@@ -93,6 +94,13 @@ import {
 } from "chart.js";
 
 Chart.register(DoughnutController, ArcElement, Tooltip, Legend);
+
+const router = useRouter();
+
+// 导航方法
+const goToAIDietSuggestion = () => {
+  router.push({ name: "AIDietSuggestion" });
+};
 
 // mock 用户信息
 type User = {
@@ -312,6 +320,17 @@ onMounted(() => {
       justify-content: center;
       gap: 12px;
       font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
     }
   }
 
