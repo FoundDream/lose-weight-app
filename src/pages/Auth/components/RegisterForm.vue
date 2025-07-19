@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { authService } from "../../../services/auth";
+import { useOnboardingStore } from "../../../stores";
 
 interface RegisterForm {
   username: string;
   password: string;
-  confirmPassword: string;
 }
 
 const router = useRouter();
@@ -13,7 +14,6 @@ const router = useRouter();
 const form = reactive<RegisterForm>({
   username: "",
   password: "",
-  confirmPassword: "",
 });
 
 const formErrors = ref<Record<string, string>>({});
@@ -33,13 +33,6 @@ const validateForm = (): boolean => {
   } else if (form.password.length < 6) {
     formErrors.value.password = "密码至少6位";
   }
-
-  if (!form.confirmPassword.trim()) {
-    formErrors.value.confirmPassword = "请确认密码";
-  } else if (form.password !== form.confirmPassword) {
-    formErrors.value.confirmPassword = "两次密码不一致";
-  }
-
   return Object.keys(formErrors.value).length === 0;
 };
 
@@ -48,9 +41,18 @@ const handleSubmit = async () => {
   if (!validateForm()) return;
 
   try {
-    // 注册成功，跳转到原页面或首页
-    const redirect = router.currentRoute.value.query.redirect as string;
-    router.push(redirect || "/");
+    const onboardingStore = useOnboardingStore();
+    const onboardingData = onboardingStore.onboardingData;
+    const response = await authService.register({
+      ...form,
+      ...onboardingData,
+    });
+    if (response) {
+      // 注册成功，跳转到原页面或首页
+      const redirect = router.currentRoute.value.query.redirect as string;
+      router.push(redirect || "/");
+      console.log(response);
+    }
   } catch (error) {
     // 错误已在store中处理
     console.error("Register failed:", error);
@@ -94,28 +96,6 @@ const handleSubmit = async () => {
           {{ formErrors.password }}
         </span>
       </div>
-
-      <!-- 确认密码输入 -->
-      <div class="form-field">
-        <label for="confirm-password" class="field-label">确认密码</label>
-        <input
-          id="confirm-password"
-          v-model="form.confirmPassword"
-          type="password"
-          class="field-input"
-          :class="{ 'field-input--error': formErrors.confirmPassword }"
-          placeholder="请再次输入密码"
-          autocomplete="new-password"
-        />
-        <span v-if="formErrors.confirmPassword" class="field-error">
-          {{ formErrors.confirmPassword }}
-        </span>
-      </div>
-
-      <!-- 全局错误提示 -->
-      <!-- <div v-if="userStore.authError" class="form-error">
-        {{ userStore.authError }}
-      </div> -->
 
       <!-- 提交按钮 -->
       <button
@@ -207,7 +187,7 @@ const handleSubmit = async () => {
   font-size: @font-size-base;
   font-weight: @font-weight-medium;
   color: @color-text-inverse;
-  background: @gradient-primary;
+  background: @color-primary;
   border: none;
   border-radius: 32px;
   cursor: pointer;

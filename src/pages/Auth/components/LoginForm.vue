@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+import { authService } from "../../../services/auth";
 
 interface LoginForm {
   username: string;
@@ -38,11 +39,13 @@ const handleSubmit = async () => {
   if (!validateForm()) return;
 
   try {
-    // 登录成功，跳转到原页面或首页
-    const redirect = router.currentRoute.value.query.redirect as string;
-    router.push(redirect || "/");
+    const response = await authService.login(form);
+    if (response) {
+      // 登录成功，跳转到原页面或首页
+      const redirect = router.currentRoute.value.query.redirect as string;
+      router.push(redirect || "/");
+    }
   } catch (error) {
-    // 错误已在store中处理
     console.error("Login failed:", error);
   }
 };
@@ -84,11 +87,6 @@ const handleSubmit = async () => {
           {{ formErrors.password }}
         </span>
       </div>
-
-      <!-- 全局错误提示 -->
-      <!-- <div v-if="userStore.authError" class="form-error">
-        {{ userStore.authError }}
-      </div> -->
 
       <!-- 提交按钮 -->
       <button
@@ -181,7 +179,7 @@ const handleSubmit = async () => {
   font-size: @font-size-base;
   font-weight: @font-weight-medium;
   color: @color-text-inverse;
-  background: @gradient-primary;
+  background: @color-primary;
   border: none;
   border-radius: 32px;
   cursor: pointer;

@@ -3,9 +3,7 @@ import type {
   LoginRequest,
   RegisterRequest,
 } from "../types/auth";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+import http from "./http";
 
 class AuthService {
   /**
@@ -13,21 +11,11 @@ class AuthService {
    */
   async login(request: LoginRequest): Promise<AuthResponse> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "登录失败");
-      }
-
-      return data;
+      const response = await http.post<AuthResponse>(
+        "/api/auth/login",
+        request
+      );
+      return response;
     } catch (error: any) {
       console.error("Login error:", error);
       throw new Error(error.message || "网络错误，请稍后重试");
@@ -39,21 +27,11 @@ class AuthService {
    */
   async register(request: RegisterRequest): Promise<AuthResponse> {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(request),
-      });
-      console.log(response, "注册返回response");
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "注册失败");
-      }
-
-      return data;
+      const response = await http.post<AuthResponse>(
+        "/api/auth/register",
+        request
+      );
+      return response;
     } catch (error: any) {
       console.error("Register error:", error);
       throw new Error(error.message || "网络错误，请稍后重试");

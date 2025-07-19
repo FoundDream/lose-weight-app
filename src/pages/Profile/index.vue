@@ -22,51 +22,6 @@
       </div>
     </div>
 
-    <!-- 数据统计卡片 -->
-    <div class="stats-card">
-      <div class="card-header">
-        <div class="card-title">健康数据</div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-icon">
-            <Icon icon="solar:calendar-mark-bold" width="24" height="24" color="#9fb567" />
-          </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ stats.daysActive }}</div>
-            <div class="stat-label">活跃天数</div>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">
-            <Icon icon="solar:fire-bold" width="24" height="24" color="#9fb567" />
-          </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ stats.totalCalories }}</div>
-            <div class="stat-label">总消耗</div>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">
-            <Icon icon="solar:chart-bold" width="24" height="24" color="#9fb567" />
-          </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ stats.weightLoss }}kg</div>
-            <div class="stat-label">减重成果</div>
-          </div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-icon">
-            <Icon icon="solar:medal-star-bold" width="24" height="24" color="#9fb567" />
-          </div>
-          <div class="stat-content">
-            <div class="stat-value">{{ stats.achievements }}</div>
-            <div class="stat-label">成就徽章</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- 设置选项 -->
     <div class="settings-card">
       <div class="card-header">
@@ -76,7 +31,12 @@
         <div class="setting-item" v-for="setting in settings" :key="setting.id">
           <div class="setting-left">
             <div class="setting-icon">
-              <Icon :icon="setting.icon" width="20" height="20" color="#9fb567" />
+              <Icon
+                :icon="setting.icon"
+                width="20"
+                height="20"
+                color="#9fb567"
+              />
             </div>
             <div class="setting-content">
               <div class="setting-title">{{ setting.title }}</div>
@@ -84,7 +44,12 @@
             </div>
           </div>
           <div class="setting-right">
-            <Icon icon="solar:alt-arrow-right-linear" width="16" height="16" color="#ccc" />
+            <Icon
+              icon="solar:alt-arrow-right-linear"
+              width="16"
+              height="16"
+              color="#ccc"
+            />
           </div>
         </div>
       </div>
@@ -102,13 +67,6 @@ type User = {
   avatar: string;
 };
 
-type Stats = {
-  daysActive: number;
-  totalCalories: string;
-  weightLoss: number;
-  achievements: number;
-};
-
 type Setting = {
   id: number;
   title: string;
@@ -120,13 +78,6 @@ const user = ref<User>({
   name: "Barbara Carney",
   email: "barbara@example.com",
   avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Barbara",
-});
-
-const stats = ref<Stats>({
-  daysActive: 45,
-  totalCalories: "12.5k",
-  weightLoss: 4.2,
-  achievements: 8,
 });
 
 const settings = ref<Setting[]>([
@@ -250,65 +201,6 @@ const settings = ref<Setting[]>([
           font-size: 14px;
           color: #fff;
           opacity: 0.8;
-        }
-      }
-    }
-  }
-
-  .stats-card {
-    width: 100%;
-    max-width: 340px;
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(76, 175, 255, 0.07);
-    margin-bottom: 12px;
-
-    .card-header {
-      margin-bottom: 20px;
-
-      .card-title {
-        font-size: 18px;
-        font-weight: 600;
-        color: #333;
-      }
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-
-      .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px;
-        background: #f9f9f9;
-        border-radius: 12px;
-
-        .stat-icon {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: rgba(159, 181, 103, 0.1);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .stat-content {
-          .stat-value {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 2px;
-          }
-
-          .stat-label {
-            font-size: 12px;
-            color: #666;
-          }
         }
       }
     }

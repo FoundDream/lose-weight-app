@@ -113,6 +113,20 @@
           </div>
         </div>
       </template>
+
+      <!-- 步骤5：达成目标日期 -->
+      <template v-else-if="step === 5">
+        <var-picker
+          :columns="columnsDeadline"
+          :toolbar="true"
+          title="几天后"
+          v-model="form.deadline"
+          ><template #confirm>
+            <div />
+          </template>
+          <template #cancel> <div /></template>
+        </var-picker>
+      </template>
     </div>
 
     <div class="step-actions">
@@ -124,6 +138,15 @@
       >
         {{ stepActions[step] }}
       </var-button>
+      <div class="onboarding-page-content-login">
+        已有账号点击
+        <a
+          type="text"
+          @click="router.push('/login')"
+          class="onboarding-page-content-login-link"
+          >登陆</a
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -131,12 +154,30 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useOnboardingStore } from "../../stores";
 
+const onboardingStore = useOnboardingStore();
 const router = useRouter();
 
 const step = ref(0);
-const stepLabels = ["", "性别", "身体/体重", "年龄", "减重目标", "完成"];
-const stepActions = ["开始", "下一步", "下一步", "下一步", "下一步", "完成"];
+const stepLabels = [
+  "",
+  "性别",
+  "身体/体重",
+  "年龄",
+  "减重目标",
+  "达成目标日期",
+  "完成",
+];
+const stepActions = [
+  "开始",
+  "下一步",
+  "下一步",
+  "下一步",
+  "下一步",
+  "下一步",
+  "完成",
+];
 
 const generateColumns = (start: number, end: number, unit: string) => {
   const length = end - start + 1; // Calculate the number of items needed
@@ -152,13 +193,15 @@ const columnsWeight = ref(generateColumns(20, 400, "kg"));
 
 const columnsAge = ref(generateColumns(1, 100, "岁"));
 
+const columnsDeadline = ref(generateColumns(1, 365, "天"));
+
 const form = reactive({
   age: [25] as number[],
   gender: "男",
   height: [170] as number[],
   weight: [70] as number[],
   targetWeight: 60 as number,
-  targetWeeks: 12 as number,
+  deadline: [30] as number[],
 });
 
 const simpleSliderRef = ref<HTMLElement | null>(null);
@@ -225,19 +268,23 @@ function onSimpleThumbDown(_e: MouseEvent | TouchEvent) {
 function nextStep() {
   if (step.value === 1 && (!form.age || !form.gender)) return;
   if (step.value === 2 && (!form.height || !form.weight)) return;
-  if (step.value === 3 && (!form.targetWeight || !form.targetWeeks)) return;
+  if (step.value === 3 && !form.age) return;
+  if (step.value === 4 && !form.targetWeight) return;
+  if (step.value === 5 && !form.deadline) return;
   if (step.value < stepLabels.length - 1) step.value++;
   if (step.value === stepLabels.length - 1) {
-    router.replace("/");
-    console.log(form);
-    // TODO：因为 picker 组件的 value 是数组，所以需要转换为对象
+    router.replace("/auth");
     const formData = {
       age: form.age[0],
       gender: form.gender,
       height: form.height[0],
       weight: form.weight[0],
+      targetWeight: form.targetWeight,
+      deadline: new Date(
+        new Date().getTime() + form.deadline[0] * 24 * 60 * 60 * 1000
+      ),
     };
-    console.log(formData);
+    onboardingStore.setFormData(formData);
   }
 }
 
@@ -459,5 +506,15 @@ function selectGender(gender: string) {
   z-index: 3;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.onboarding-page-content-login {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  margin-top: 16px;
+}
+.onboarding-page-content-login-link {
+  color: @color-primary;
 }
 </style>
