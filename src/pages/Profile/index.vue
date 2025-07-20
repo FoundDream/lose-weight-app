@@ -17,7 +17,6 @@
         </div>
         <div class="user-details">
           <div class="user-name">{{ user.name }}</div>
-          <div class="user-email">{{ user.email }}</div>
         </div>
       </div>
     </div>
@@ -63,7 +62,6 @@ import { Icon } from "@iconify/vue";
 
 type User = {
   name: string;
-  email: string;
   avatar: string;
 };
 
@@ -75,41 +73,16 @@ type Setting = {
 };
 
 const user = ref<User>({
-  name: "Barbara Carney",
-  email: "barbara@example.com",
+  name: "ziwen",
   avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Barbara",
 });
 
 const settings = ref<Setting[]>([
   {
     id: 1,
-    title: "目标设置",
-    description: "体重、热量目标管理",
-    icon: "solar:target-linear",
-  },
-  {
-    id: 2,
-    title: "提醒设置",
-    description: "饮食、运动提醒",
-    icon: "solar:bell-linear",
-  },
-  {
-    id: 3,
     title: "数据导出",
     description: "导出健康数据",
     icon: "solar:download-linear",
-  },
-  {
-    id: 4,
-    title: "隐私设置",
-    description: "数据隐私管理",
-    icon: "solar:shield-linear",
-  },
-  {
-    id: 5,
-    title: "关于应用",
-    description: "版本信息与反馈",
-    icon: "solar:info-circle-linear",
   },
 ]);
 </script>
@@ -195,12 +168,6 @@ const settings = ref<Setting[]>([
           font-weight: 600;
           color: #fff;
           margin-bottom: 4px;
-        }
-
-        .user-email {
-          font-size: 14px;
-          color: #fff;
-          opacity: 0.8;
         }
       }
     }

@@ -6,5 +6,5 @@
 // biome-ignore lint: disable
 export {}
 declare global {
-
+  const Snackbar: typeof import('@varlet/ui')['Snackbar']
 }

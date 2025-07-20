@@ -15,6 +15,9 @@ class AuthService {
         "/api/auth/login",
         request
       );
+      if (response) {
+        this.setToken(response.token);
+      }
       return response;
     } catch (error: any) {
       console.error("Login error:", error);
@@ -31,6 +34,9 @@ class AuthService {
         "/api/auth/register",
         request
       );
+      if (response) {
+        this.setToken(response.token);
+      }
       return response;
     } catch (error: any) {
       console.error("Register error:", error);

@@ -5,7 +5,6 @@ import type {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
-import { Snackbar } from "@varlet/ui";
 
 // 环境变量配置
 const API_BASE_URL =
@@ -36,15 +35,7 @@ http.interceptors.request.use(
 
     // 如果有token，添加到请求头
     if (token && config.headers) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    // 添加请求时间戳，防止缓存
-    if (config.method === "get") {
-      config.params = {
-        ...config.params,
-        _t: Date.now(),
-      };
+      config.headers.authorization = `Bearer ${token}`;
     }
 
     console.log("🚀 发送请求:", config.method?.toUpperCase(), config.url);
@@ -68,7 +59,6 @@ http.interceptors.response.use(
       if (!data.success) {
         // 业务逻辑错误
         const errorMessage = data.message || "请求失败";
-        Snackbar.error(errorMessage);
         throw new Error(errorMessage);
       }
       return data.data; // 直接返回data字段
@@ -113,9 +103,6 @@ http.interceptors.response.use(
       // 请求配置出错
       errorMessage = error.message || "请求配置错误";
     }
-
-    // 显示错误提示
-    Snackbar.error(errorMessage);
 
     return Promise.reject(new Error(errorMessage));
   }

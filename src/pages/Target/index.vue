@@ -2,14 +2,12 @@
   <div class="body-profile-page">
     <div class="page-header">
       <h1 class="page-title">身体档案</h1>
-      <p class="page-subtitle">
-        完善您的个人信息，以获得更精准的健康建议。
-      </p>
+      <p class="page-subtitle">完善您的个人信息，以获得更精准的健康建议。</p>
     </div>
 
     <div class="visualization-section">
       <div class="bmi-card">
-        <div class="bmi-value">{{ bmi }}</div>
+        <div class="bmi-value">{{ userInfo.bmi }}</div>
         <div class="bmi-label">BMI</div>
         <div class="bmi-status" :style="{ backgroundColor: bmiStatus.color }">
           {{ bmiStatus.text }}
@@ -26,11 +24,11 @@
         <div class="weight-details">
           <div class="weight-item">
             <span class="label">当前</span>
-            <span class="value">{{ currentWeight }}kg</span>
+            <span class="value">{{ userInfo.currentWeight }}kg</span>
           </div>
           <div class="weight-item">
             <span class="label">目标</span>
-            <span class="value">{{ targetWeight }}kg</span>
+            <span class="value">{{ userInfo.targetWeight }}kg</span>
           </div>
         </div>
       </div>
@@ -73,30 +71,6 @@
           <var-option label="男" value="男" />
           <var-option label="女" value="女" />
         </var-select>
-        <var-date-picker
-          v-else-if="editingItem?.key === 'birthdate'"
-          v-model="editValue"
-        />
-        <var-select
-          v-else-if="editingItem?.key === 'weeklyGoal'"
-          v-model="editValue"
-          placeholder="请选择每周目标"
-        >
-          <var-option label="减重0.25公斤" />
-          <var-option label="减重0.5公斤" />
-          <var-option label="减重0.75公斤" />
-          <var-option label="减重1公斤" />
-        </var-select>
-        <var-select
-          v-else-if="editingItem?.key === 'activityLevel'"
-          v-model="editValue"
-          placeholder="请选择活动水平"
-        >
-          <var-option label="久坐" />
-          <var-option label="轻度活跃" />
-          <var-option label="中度活跃" />
-          <var-option label="非常活跃" />
-        </var-select>
       </div>
       <template #actions>
         <var-button @click="showEditDialog = false">取消</var-button>
@@ -107,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { Icon } from "@iconify/vue";
 import {
   Chart,
@@ -122,7 +96,8 @@ import {
   CategoryScale,
   Filler,
 } from "chart.js";
-
+import { useUserStore } from "../../stores/user";
+import type { UserInfoResponse } from "../../types/user";
 Chart.register(
   DoughnutController,
   ArcElement,
@@ -145,54 +120,48 @@ type ProfileItem = {
   options?: string[];
 };
 
-const profileItems = ref<ProfileItem[]>([
+const userStore = useUserStore();
+const userInfo = ref<UserInfoResponse>({
+  id: 0,
+  username: "",
+  gender: "",
+  age: 0,
+  height: 0,
+  initialWeight: 0,
+  currentWeight: 0,
+  targetWeight: 0,
+  deadline: new Date(),
+  bmi: 0,
+});
+
+const profileItems = computed(() => [
   {
     icon: "solar:user-bold-duotone",
     label: "性别",
-    value: "未设置",
+    value: userInfo.value.gender || "未设置",
     key: "gender",
     options: ["男", "女"],
   },
   {
-    icon: "solar:calendar-bold-duotone",
-    label: "出生日期",
-    value: "1995-01-01",
-    key: "birthdate",
-  },
-  {
     icon: "solar:ruler-bold-duotone",
     label: "身高",
-    value: "175",
+    value: userInfo.value.height?.toString() || "175",
     unit: "cm",
     key: "height",
   },
   {
     icon: "solar:weight-bold-duotone",
     label: "当前体重",
-    value: "68",
+    value: userInfo.value.currentWeight?.toString() || "68",
     unit: "kg",
     key: "currentWeight",
   },
   {
     icon: "solar:target-bold-duotone",
     label: "目标体重",
-    value: "65",
+    value: userInfo.value.targetWeight?.toString() || "65",
     unit: "kg",
     key: "targetWeight",
-  },
-  {
-    icon: "solar:chart-bold-duotone",
-    label: "每周目标",
-    value: "减重0.5公斤",
-    key: "weeklyGoal",
-    options: ["减重0.25公斤", "减重0.5公斤", "减重0.75公斤", "减重1公斤"],
-  },
-  {
-    icon: "solar:running-bold-duotone",
-    label: "活动水平",
-    value: "轻度活跃",
-    key: "activityLevel",
-    options: ["久坐", "轻度活跃", "中度活跃", "非常活跃"],
   },
 ]);
 
@@ -213,12 +182,32 @@ const openEditDialog = (item: ProfileItem) => {
 
 const saveItem = () => {
   if (editingItem.value) {
-    const index = profileItems.value.findIndex(
-      (i) => i.key === editingItem.value!.key
-    );
-    if (index !== -1) {
-      profileItems.value[index].value = editValue.value;
+    const key = editingItem.value.key;
+    const value = editValue.value;
+
+    // 根据不同的字段类型更新userInfo
+    switch (key) {
+      case "gender":
+        userInfo.value.gender = value;
+        break;
+      case "height":
+        userInfo.value.height = parseFloat(value);
+        break;
+      case "currentWeight":
+        userInfo.value.currentWeight = parseFloat(value);
+        break;
+      case "targetWeight":
+        userInfo.value.targetWeight = parseFloat(value);
+        break;
+      case "weeklyGoal":
+        // 这里可以添加每周目标的逻辑
+        break;
+      default:
+        console.log("未知字段:", key);
     }
+
+    // 重新创建图表以反映新数据
+    createOrUpdateChart();
   }
   showEditDialog.value = false;
   editingItem.value = null;
@@ -228,31 +217,8 @@ const saveItem = () => {
 const weightChartCanvas = ref<HTMLCanvasElement | null>(null);
 let weightChartInstance: Chart | null = null;
 
-const height = computed(() => {
-  const item = profileItems.value.find((i) => i.key === "height");
-  return item ? parseFloat(item.value) : 0;
-});
-
-const currentWeight = computed(() => {
-  const item = profileItems.value.find((i) => i.key === "currentWeight");
-  return item ? parseFloat(item.value) : 0;
-});
-
-const targetWeight = computed(() => {
-  const item = profileItems.value.find((i) => i.key === "targetWeight");
-  return item ? parseFloat(item.value) : 0;
-});
-
-const bmi = computed(() => {
-  if (height.value > 0 && currentWeight.value > 0) {
-    const heightInMeters = height.value / 100;
-    return (currentWeight.value / (heightInMeters * heightInMeters)).toFixed(1);
-  }
-  return "N/A";
-});
-
 const bmiStatus = computed(() => {
-  const bmiValue = parseFloat(bmi.value as string);
+  const bmiValue = userInfo.value.bmi;
   if (isNaN(bmiValue)) return { text: "未知", color: "#999" };
   if (bmiValue < 18.5) return { text: "偏瘦", color: "#3498db" };
   if (bmiValue < 24) return { text: "正常", color: "#2ecc71" };
@@ -261,18 +227,16 @@ const bmiStatus = computed(() => {
 });
 
 const weightProgress = computed(() => {
-  if (targetWeight.value > 0 && currentWeight.value > 0) {
-    const initialWeight =
-      parseFloat(
-        profileItems.value.find((i) => i.key === "currentWeight")?.value || "0"
-      ) + 5; // Simulating initial weight for progress
-    const progress =
-      ((initialWeight - currentWeight.value) /
-        (initialWeight - targetWeight.value)) *
-      100;
-    return Math.max(0, Math.min(100, progress));
+  // 防止除零错误和NaN
+  if (userInfo.value.initialWeight === userInfo.value.targetWeight) {
+    return 0;
   }
-  return 0;
+
+  const progress =
+    ((userInfo.value.currentWeight - userInfo.value.targetWeight) /
+      (userInfo.value.initialWeight - userInfo.value.targetWeight)) *
+    100;
+  return Math.max(0, Math.min(100, 100 - progress));
 });
 
 const createOrUpdateChart = () => {
@@ -306,11 +270,9 @@ const createOrUpdateChart = () => {
   }
 };
 
-onMounted(() => {
-  createOrUpdateChart();
-});
-
-watch([currentWeight, targetWeight], () => {
+onMounted(async () => {
+  const userInfoResponse = await userStore.getUserInfo({ username: "ziwen" });
+  userInfo.value = userInfoResponse;
   createOrUpdateChart();
 });
 </script>
@@ -347,7 +309,8 @@ watch([currentWeight, targetWeight], () => {
   margin-bottom: 24px;
 }
 
-.bmi-card, .weight-progress-card {
+.bmi-card,
+.weight-progress-card {
   background-color: #fff;
   border-radius: 16px;
   padding: 20px;

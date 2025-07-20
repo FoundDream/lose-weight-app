@@ -142,7 +142,7 @@
         已有账号点击
         <a
           type="text"
-          @click="router.push('/login')"
+          @click="router.push('/auth')"
           class="onboarding-page-content-login-link"
           >登陆</a
         >

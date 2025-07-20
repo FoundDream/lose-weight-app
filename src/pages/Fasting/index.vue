@@ -67,34 +67,6 @@
           </button>
         </div>
       </div>
-
-      <!-- 今日时间表 -->
-      <div class="schedule-card">
-        <div class="schedule-header">
-          <h3>今日时间表</h3>
-          <button class="edit-schedule-btn" @click="showEditDialog = true">
-            <Icon icon="solar:pen-linear" width="16" height="16" />
-          </button>
-        </div>
-        <div class="schedule-timeline">
-          <div class="timeline-item">
-            <div class="timeline-time">{{ todaySchedule.fastingStart }}</div>
-            <div class="timeline-content">
-              <div class="timeline-title">开始断食</div>
-              <div class="timeline-subtitle">
-                直到 {{ todaySchedule.eatingStart }} 前不摄入卡路里
-              </div>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-time">{{ todaySchedule.eatingStart }}</div>
-            <div class="timeline-content">
-              <div class="timeline-title">进食时间开始</div>
-              <div class="timeline-subtitle">8小时进食期开始</div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- 预设时间底部弹窗 -->
@@ -707,84 +679,6 @@ onUnmounted(() => {
 
         &:active {
           transform: scale(0.98);
-        }
-      }
-    }
-  }
-
-  .schedule-card {
-    width: 100%;
-    max-width: 340px;
-    background: #ffffff;
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(76, 175, 255, 0.07);
-
-    .schedule-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-
-      h3 {
-        font-size: 18px;
-        font-weight: 600;
-        color: #333;
-        margin: 0;
-      }
-
-      .edit-schedule-btn {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border: none;
-        background: transparent;
-        color: #9fb567;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.2s ease;
-
-        &:active {
-          transform: scale(0.95);
-        }
-      }
-    }
-
-    .schedule-timeline {
-      .timeline-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        margin-bottom: 16px;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-        .timeline-time {
-          font-size: 14px;
-          font-weight: 600;
-          color: #9fb567;
-          min-width: 50px;
-          text-align: right;
-        }
-
-        .timeline-content {
-          flex: 1;
-
-          .timeline-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-          }
-
-          .timeline-subtitle {
-            font-size: 12px;
-            color: #666;
-          }
         }
       }
     }

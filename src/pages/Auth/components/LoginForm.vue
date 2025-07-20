@@ -1,3 +1,54 @@
+<template>
+  <div class="login-form">
+    <form @submit.prevent="handleSubmit" class="form">
+      <!-- 用户名输入 -->
+      <div class="form-field">
+        <label for="username" class="field-label">用户名</label>
+        <input
+          id="username"
+          v-model="form.username"
+          type="text"
+          class="field-input"
+          :class="{ 'field-input--error': formErrors.username }"
+          placeholder="请输入用户名"
+          autocomplete="username"
+        />
+        <span v-if="formErrors.username" class="field-error">
+          {{ formErrors.username }}
+        </span>
+      </div>
+
+      <!-- 密码输入 -->
+      <div class="form-field">
+        <label for="password" class="field-label">密码</label>
+        <input
+          id="password"
+          v-model="form.password"
+          type="password"
+          class="field-input"
+          :class="{ 'field-input--error': formErrors.password }"
+          placeholder="请输入密码"
+          autocomplete="current-password"
+        />
+        <span v-if="formErrors.password" class="field-error">
+          {{ formErrors.password }}
+        </span>
+      </div>
+
+      <!-- 提交按钮 -->
+      <button
+        type="submit"
+        class="submit-btn"
+        :disabled="false"
+        :class="{ 'submit-btn--loading': false }"
+      >
+        <span v-if="false">登录中...</span>
+        <span v-else>登录</span>
+      </button>
+    </form>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { useRouter } from "vue-router";
@@ -50,57 +101,6 @@ const handleSubmit = async () => {
   }
 };
 </script>
-
-<template>
-  <div class="login-form">
-    <form @submit.prevent="handleSubmit" class="form">
-      <!-- 用户名输入 -->
-      <div class="form-field">
-        <label for="username" class="field-label">用户名</label>
-        <input
-          id="username"
-          v-model="form.username"
-          type="text"
-          class="field-input"
-          :class="{ 'field-input--error': formErrors.username }"
-          placeholder="请输入用户名"
-          autocomplete="username"
-        />
-        <span v-if="formErrors.username" class="field-error">
-          {{ formErrors.username }}
-        </span>
-      </div>
-
-      <!-- 密码输入 -->
-      <div class="form-field">
-        <label for="password" class="field-label">密码</label>
-        <input
-          id="password"
-          v-model="form.password"
-          type="password"
-          class="field-input"
-          :class="{ 'field-input--error': formErrors.password }"
-          placeholder="请输入密码"
-          autocomplete="current-password"
-        />
-        <span v-if="formErrors.password" class="field-error">
-          {{ formErrors.password }}
-        </span>
-      </div>
-
-      <!-- 提交按钮 -->
-      <button
-        type="submit"
-        class="submit-btn"
-        :disabled="false"
-        :class="{ 'submit-btn--loading': false }"
-      >
-        <span v-if="false">登录中...</span>
-        <span v-else>登录</span>
-      </button>
-    </form>
-  </div>
-</template>
 
 <style scoped lang="less">
 .login-form {
